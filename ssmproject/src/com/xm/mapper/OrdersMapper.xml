@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.OrdersMapper">
+	<resultMap type="Orders" id="ord">
+		<id property="orderid" column="orderid" />
+		<result property="uid" column="uid" />
+		<result property="user.uid" column="uid" />
+		<result property="user.uname" column="uname" />
+		<result property="adid" column="adid" />
+		<result property="address.adid" column="adid" />
+		<result property="address.adprovince" column="adprovince" />
+		<result property="address.adcity" column="adcity" />
+		<result property="address.addistrict" column="addistrict" />
+		<result property="address.addstreet" column="addstreet" />
+		<result property="address.detailaddress" column="detailaddress" />
+		<result property="address.addname" column="addname" />
+		<result property="address.addphone" column="addphone" />
+		<result property="orderstate" column="orderstate" />
+		<result property="ordertime" column="ordertime" />
+		<result property="orpaytime" column="orpaytime" />
+		<result property="ordeliver" column="ordeliver" />
+		<result property="orfinish" column="orfinish" />
+		<result property="orlogistics" column="orlogistics" />
+		<result property="oroddnum" column="oroddnum" />
+		<result property="freight" column="freight" />
+		<result property="remark" column="remark" />
+		<result property="isdelete" column="isdelete" />
+		<result property="totalprice" column="totalprice" />
+		<result property="shoppingcart.shopid" column="shopid" />
+		<result property="shoppingcart.uid" column="uid" />
+		<result property="shoppingcart.shopprice" column="shopprice" />
+		<result property="shoppingcart.shopnumber" column="shopnumber" />
+	</resultMap>
+	<select id="findOrder" resultMap="ord" parameterType="ordersVo">
+		select * from orders o
+		INNER JOIN user u on o.uid=u.uid
+		INNER JOIN address a on o.adid=a.adid
+		<where>
+			<if test="addphone!=null and addphone!=''">
+				and addphone =#{addphone}
+			</if>
+			<if test="oroddnum!=null and oroddnum!=''">
+				and oroddnum =#{oroddnum}
+			</if>
+			<if test="orderstate!=null and orderstate!=''">
+				and orderstate =#{orderstate}
+			</if>
+			<if test="orlogistics!=null and orlogistics!=''">
+				and orlogistics =#{orlogistics}
+			</if>
+			<if test="maxubirthday!=null">
+				and o.ordertime &lt;= #{maxubirthday}
+			</if>
+			<if test="minubirthday!=null">
+				and o.ordertime &gt;= #{minubirthday}
+			</if>
+		</where>
+		ORDER BY o.ordertime DESC
+		<if test="page!=null and limit!=null">
+			limit ${(page-1)*limit},#{limit}
+		</if>
+		
+	</select>
+	<select id="getxiangqing" resultMap="ord" parameterType="orders">
+		select * from orders o
+		INNER JOIN user u on o.uid=u.uid
+		INNER JOIN address a on o.adid=a.adid
+		<where>
+			<if test="orderid!=null and orderid!=''">
+				and o.orderid=#{orderid}
+			</if>
+		</where>
+		ORDER BY o.ordertime DESC
+		
+	</select>
+	<update id="shanchu" parameterType="orders">
+		update orders set  isdelete=0 where orderid=#{orderid}
+	</update>
+	<update id="waishanchu" parameterType="orders">
+		update orders set  isdelete=1 where orderid=#{orderid}
+	</update>
+	<update id="fahuo" parameterType="orders">
+		update orders set  orderstate=2,oroddnum=#{oroddnum},orlogistics=#{orlogistics},freight=#{freight},ordeliver=NOW() where orderid=#{orderid}
+	</update>
+	<update id="getwuliu" parameterType="orders">
+		update orders set oroddnum=#{oroddnum} where orderid=#{orderid}
+	</update>
+	<update id="shengcheng" parameterType="int">
+		update orders set oroddnum=#{oroddnum} where orderid=#{orderid}
+	</update>
+	<insert id="insertOrders" parameterType="orders">
+	insert into orders(uid,adid,orderstate,ordertime,isdelete,totalprice) values(#{uid},#{adid},0,NOW(),0,#{totalprice}) 
+	</insert>
+	<select id="getshoppord" resultMap="ord" parameterType="orders">
+	SELECT * FROM orders JOIN shoppingcart on orders.uid=shoppingcart.uid WHERE orders.uid=#{uid} ORDER BY orderid DESC
+	</select>
+	<select id="getshoppord2" resultMap="ord" parameterType="orders">
+	SELECT * FROM orders JOIN shoppingcart on orders.uid=shoppingcart.uid WHERE orders.orderid=#{orderid} ORDER BY orderid DESC
+	</select>
+	<update id="updateOrders" parameterType="orders">
+	update orders set orderstate=1 where orderid=#{orderid}
+	</update>
+	<select id="Qiantai" parameterType="orderssVo" resultMap="ord">
+	SELECT * FROM orders o JOIN user u on o.uid=u.uid 
+	<where>
+	o.uid=#{uid}
+	<if test="orderstate!=null">
+		and orderstate=#{orderstate}
+	</if>
+		</where>
+		ORDER BY orderid DESC
+	</select>
+	<select id="Dan" parameterType="orders" resultMap="ord" >
+	select * from orders o
+		INNER JOIN user u on o.uid=u.uid
+		INNER JOIN address a on o.adid=a.adid where o.orderid=#{orderid} 
+	</select>
+	<update id="Qianxiu" parameterType="orders">
+		update orders set  orderstate=4 where orderid=#{orderid}
+	</update>
+	<select id="Danbiao" parameterType="int" resultType="orders" >
+	select * from orders  where orderid=#{orderid}
+	</select>
+	<update id="updateOrderss" parameterType="orders">
+	update orders set orderstate=5 where orderid=#{orderid}
+	</update>
+</mapper>

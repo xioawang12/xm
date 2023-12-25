@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.RecommentlocationMapper">
+	<resultMap type="Recommentlocation" id="rec">
+		<id property="locid" column="locid" />
+		<result property="location" column="location" />
+	</resultMap>
+	<select id="findByPage" resultMap="rec"
+		parameterType="recommentlocationVo">
+		select *from recommentlocation
+		<where>
+			<if test="location!=null and location!=''">
+				and location like "%"#{location}"%"
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+			limit ${(page-1)*limit},#{limit}
+		</if>
+	</select>
+	<insert id="insertRecommentlocation" parameterType="recommentlocation">
+		insert into recommentlocation values(null,#{location})
+	</insert>
+	<update id="updateRecommentlocation" parameterType="recommentlocation">
+		update recommentlocation set
+		location=#{location} where locid=#{locid}
+	</update>
+	<delete id="deleteById" parameterType="int">
+		delete from recommentlocation where locid=#{locid}
+	</delete>
+	<select id="getrec" resultType="recommentlocation" parameterType="recommentlocation">
+	select * from recommentlocation
+	</select>
+	<select id="getname" resultType="recommentlocation" parameterType="recommentlocation">
+	select * from recommentlocation where location=#{location}
+	</select>
+</mapper>

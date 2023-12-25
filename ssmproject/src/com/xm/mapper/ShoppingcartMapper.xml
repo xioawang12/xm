@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.ShoppingcartMapper">
+	<resultMap type="shoppingcart" id="sho">
+<id property="shopid" column="shopid"/>
+<result property="uid" column="uid"/>
+<result property="pid" column="pid"/>
+<result property="sid" column="sid"/>
+<result property="user.uid" column="uid"/>
+<result property="shopprice" column="shopprice"/>
+<result property="shopnumber" column="shopnumber"/>
+<result property="product.pid" column="pid"/>
+<result property="product.pname" column="pname"/>
+<result property="product.pimg" column="pimg"/>
+<result property="specification.sid" column="sid"/>
+<result property="specification.scolor" column="scolor"/>
+<result property="specification.soriginal" column="soriginal"/>
+<result property="specification.sstock" column="sstock"/>
+</resultMap>
+<select id="findShoppingcart" resultMap="sho" parameterType="int">
+		select * from shoppingcart sho 
+		INNER JOIN user u on sho.uid=u.uid
+		INNER JOIN product p on sho.pid=p.pid
+		INNER JOIN specification s on sho.sid=s.sid
+		where u.uid=#{uid}
+</select> 
+<select id="findAll" resultType="shoppingcart">
+	select *from shoppingcart
+</select>
+	<insert id="insertShoppingcart" parameterType="shoppingcart">
+		insert into shoppingcart values(null,#{uid},#{pid},#{sid},#{shopprice},#{shopnumber})
+	</insert>
+	<delete id="deleteShoppingcart" parameterType="int">
+		delete from shoppingcart where shopid in(#{shopid})
+	</delete>
+	<delete id="deleteAllShoppingcart" parameterType="String">
+		delete from shoppingcart where shopid in(${ids})
+	</delete>
+	<select id="getpsid" parameterType="shoppingcart" resultType="shoppingcart">
+	select * from shoppingcart where sid=#{sid} and pid=#{pid}
+	</select>
+	<update id="updatesho" parameterType="shoppingcart">
+	update shoppingcart set shopprice=#{shopprice},shopnumber=#{shopnumber} where shopid=#{shopid}
+	</update>
+	<select id="getshisid" parameterType="shoppingcart" resultType="shoppingcart">
+	select * from shoppingcart where pid=#{pid} and sid=#{sid}
+	</select>
+</mapper>

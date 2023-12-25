@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.SpecificationMapper">
+	<resultMap type="Specification" id="spe">
+		<id property="sid" column="sid" />
+		<result property="pid" column="pid" />
+		<result property="scolor" column="scolor" />
+		<result property="soriginal" column="soriginal" />
+		<result property="product.pid" column="pid" />
+		<result property="product.pname" column="pname" />
+		<result property="product.cateid" column="cateid" />
+		<result property="product.pimg" column="pimg" />
+		<result property="product.pintro" column="pintro" />
+		<result property="product.pdetail" column="pdetail" />
+		<result property="product.pischoice" column="pischoice" />
+		<result property="product.pstate" column="pstate" />
+		<result property="product.pmaterial" column="pmaterial" />
+		<result property="sstock" column="sstock" />
+	</resultMap>
+	<select id="findByPage" resultMap="spe"
+		parameterType="specificationVo">
+		select * from specification s join product p on s.pid=p.pid
+		<where>
+			<if test="scolor!=null and scolor!=''">
+				and s.scolor like "%"#{scolor}"%"
+			</if>
+			<if test="pid!=null and pid!=''">
+				and s.pid=#{pid}
+			</if>
+			<if test="minSoriginal!=null and minSoriginal!='' ">
+				and s.soriginal>#{minSoriginal}
+			</if>
+			<if test="maxSoriginal!=null and maxSoriginal!='' ">
+				and s.soriginal&lt;=#{maxSoriginal}
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+			limit ${(page-1)*limit},#{limit}
+		</if>
+	</select>
+	<insert id="insertSpecification" parameterType="specification">
+		insert into specification values(null,#{pid},#{scolor},#{soriginal},#{sstock})
+	</insert>
+	<update id="updateSpecification" parameterType="specification">
+		update specification set
+		pid=#{pid},scolor=#{scolor},soriginal=#{soriginal},sstock=#{sstock} where sid=#{sid}
+	</update>
+	<delete id="deleteById" parameterType="int">
+		delete from specification where sid=#{pid}
+	</delete>
+	<delete id="deleteByIds" parameterType="string">
+		delete from specification where sid in(${ids})
+	</delete>
+	<select id="getspec" resultType="specification" parameterType="int">
+	select * from specification where pid=#{pid}
+	</select>
+	<select id="getname" resultType="specification" parameterType="specification">
+	select * from specification where scolor=#{scolor} and pid=#{pid}
+	</select>
+	<update id="upsstock" parameterType="specification" >
+	update specification set sstock=#{sstock} where sid=#{sid}
+	</update>
+</mapper>

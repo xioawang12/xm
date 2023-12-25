@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.OrdersDetailMapper">
+	<resultMap type="OrdersDetail" id="od">
+		<id property="oid" column="oid"/>
+		<result property="pid" column="pid" />
+		<result property="product.pid" column="pid" />
+		<result property="product.pname" column="pname" />
+		<result property="product.cateid" column="cateid" />
+		<result property="product.pimg" column="pimg" />
+		<result property="orderid" column="orderid" />
+		<result property="orders.orderid" column="orderid" />
+		<result property="orders.orderstate" column="orderstate" />
+		<result property="sid" column="sid" />
+		<result property="specification.sid" column="sid" />
+		<result property="specification.scolor" column="scolor" />
+		<result property="number" column="number" />
+		<result property="price" column="price" />
+		<result property="remark" column="remark" />
+		<result property="adid" column="adid" />
+		<result property="address.adid" column="adid" />
+		<result property="address.adprovince" column="adprovince" />
+		<result property="address.adcity" column="adcity" />
+		<result property="address.addistrict" column="addistrict" />
+		<result property="address.addstreet" column="addstreet" />
+		<result property="address.detailaddress" column="detailaddress" />
+		<result property="address.addname" column="addname" />
+	</resultMap>
+	<select id="findOrdersDetail" resultMap="od" parameterType="ordersDetail">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+		<where>
+			<if test="orderid!=null and orderid!=''">
+				and od.orderid=#{orderid}
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+ 			limit ${(page-1)*limit},#{limit}
+		</if>
+	</select>
+	<select id="getxiangqing" resultMap="od" parameterType="ordersDetail">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+		<where>
+			<if test="orderid!=null and orderid!=''">
+				and od.orderid=#{orderid}
+			</if>
+		</where>
+		<if test="page!=null and limit!=null">
+ 			limit ${(page-1)*limit},#{limit}
+		</if>
+	</select>
+	<select id="danchaOrdersDetail" resultMap="od" parameterType="int">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+		where od.orderid=#{id}
+	</select>
+	<insert id="insertOrdersDetail" parameterType="ordersDetail">
+	insert into OrdersDetail(pid,orderid,sid,number,price) values(#{pid},#{orderid},#{sid},#{number},#{price})
+	</insert>
+	<select id="QianSan" resultMap="od" parameterType="ordersDetail">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+	</select>
+	<select id="QianXiang" resultMap="od" parameterType="int">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+		where o.orderid=#{orderid}
+	</select>
+	<select id="quanchaOrdersDetail" resultMap="od" parameterType="int">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+		where uid=#{id}
+	</select>
+</mapper>

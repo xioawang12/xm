@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+ <script type="text/javascript" src="../layui/layui.js"></script>
+ <style>
+.layui-table-cell {
+	height: auto;
+}
+</style>
+</head>
+<body>
+<div class="layui-form-item" style="margin-top: 20px;">
+		<form class="layui-form" onsubmit="return false;">
+			<label class="layui-form-label">手机号:</label>
+			<div class="layui-input-inline" style="width: 120px;">
+				<input type="text" name="addphone" autocomplete="off"
+					class="layui-input" >
+			</div>
+		
+			<label class="layui-form-label">物流单号:</label>
+			<div class="layui-input-inline" style="width: 120px;">
+				<input type="text" name="oroddnum" autocomplete="off"
+					class="layui-input">
+			</div>
+			
+			<label class="layui-form-mid">日期:</label>
+			<div class="layui-input-inline" style="width: 120px;">
+				<input type="text" name="minubirthday" id="begin"
+					placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+			</div>
+			<label class="layui-form-mid">--</label>
+			<div class="layui-input-inline" style="width: 120px;">
+				<input type="text" name="maxubirthday" id="end" placeholder="yyyy-MM-dd"
+					autocomplete="off" class="layui-input">
+			</div>
+			
+    		<label class="layui-form-label">状态</label>
+    		<div class="layui-input-inline" style="width: 100px;">
+      			<select name="orderstate" >
+        			<option value="">请选择</option>
+        			<option value="0">待支付</option>
+       				 <option value="1">代发货</option>
+       				 <option value="2">待收货</option>
+       				 <option value="3">己收货</option>
+       				 <option value="4">待评价</option>
+       				 <option value="5">已评价</option>
+      			</select>
+    		</div>
+    		<label class="layui-form-label">物流</label>
+    		<div class="layui-input-inline" style="width: 100px;">
+      			<select name="orlogistics" >
+        			<option value="">请选择</option>
+        			<option value="邮政">邮政</option>
+       				 <option value="中通">中通</option>
+       				 <option value="顺丰">顺丰</option>
+       				 <option value="申通">申通</option>
+      			</select>
+    		</div>
+			<div class="layui-input-inline" style="width: 300px;">
+				<button class="layui-btn" lay-submit lay-filter="search">搜索</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				
+				
+			</div>
+		</form>
+	</div>
+<script type="text/html" id="toolEventDemo">
+<div class="a">
+
+	{{#  if(d.isdelete == 0){ }}
+ 		<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="waishanchu">未删除</a>
+	{{#  } }}
+	{{#  if(d.isdelete == 1){ }}
+		<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="shanchu">删除</a>
+	{{#  } }}
+		
+	 {{#  if(d.orderstate == 0){ }}
+  	 <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="fahuo">待支付</a>
+  	{{#  } else if(d.orderstate == 1){ }}
+  	 <a class="layui-btn layui-btn-xs " lay-event="fahuo">发货</a>
+	{{#  }else{ }}
+	 <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="fahuo">已发货</a>
+  	{{#  } }}
+	
+	<a class="layui-btn layui-btn-xs" lay-event="img">查看详情</a>
+</div>
+
+</script>
+<!-- 修改表 -->
+<div style="display: none;" id="updiv">
+<form class="layui-form" lay-filter="fmupdate" action="" id="upbiaodan">
+  <div class="layui-form-item">
+    <label class="layui-form-label">物流单号</label>
+    <div class="layui-input-inline">
+    <input type="hidden" name="orderid">
+      <input type="text" name="oroddnum" id="oroddnum"  lay-verify="title" autocomplete="off" placeholder="请生成物流单号" class="layui-input">
+    </div>
+    <button class="layui-btn" lay-submit lay-filter="shengcheng">生成订单编号</button>
+  </div>
+  <label class="layui-form-label">物流</label>
+    		<div class="layui-input-inline" style="width: 100px;">
+      			<select name="orlogistics" >
+        			<option value="">请选择</option>
+        			<option value="邮政">邮政</option>
+       				 <option value="中通">中通</option>
+       				 <option value="顺丰">顺丰</option>
+       				 <option value="申通">申通</option>
+      			</select>
+    		</div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">运费</label>
+    <div class="layui-input-inline">
+      <input type="text" name="freight" lay-verify="title" autocomplete="off" placeholder="请输入运费" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="fahuo">发货</button>
+      
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+ </form>
+</div>
+<table id="demo" lay-filter="test"></table>
+
+</body>
+<script type="text/html" id="zhuangtai">
+  {{#  if(d.orderstate === '0'){ }}
+   待支付
+  {{#  } else if(d.orderstate === '1'){ }}
+   代发货
+  {{#  } else if(d.orderstate === '2'){ }}
+   已发货
+  {{#  } else if(d.orderstate === '3'){ }}
+   己收货
+  {{#  } else if(d.orderstate === '4'){ }}
+   待评价
+  {{#  } else{ }}
+   已评价
+  {{#  } }}
+ 
+</script>
+<script type="text/html" id="shifoushanchu">
+  {{#  if(d.isdelete === 0){ }}
+   不删除
+  {{#  } else{ }}
+   删除
+  {{#  } }}
+ 
+</script>
+	<script src="/layui/layui.js"></script>
+<script>
+layui.use(['table', 'form','laydate','laypage','upload'], function(){
+	var table = layui.table,
+	form = layui.form,
+	upload =layui.upload,
+	laydate=layui.laydate,
+	laypage = layui.laypage,
+	$=layui.$;
+	//日期时间范围选择
+	laydate.render({ 
+	  elem: '#begin'
+	  ,type: 'date'
+	});
+	//日期时间范围选择
+	laydate.render({ 
+	  elem: '#end'
+	  ,type: 'date'
+	});
+
+  //第一个实例
+  table.render({
+    elem: '#demo'
+    ,height: 500
+    ,url: '../OrdersController/findOrder' //数据接口
+    ,method:'post'
+    ,page: true //开启分页
+    ,cols: [[ //表头
+    	{checkbox:true}
+      ,{field: 'orderid', title: 'ID', width:80}
+      ,{templet: '<div>{{d.address.addname}}</div>', title: '用户', width: 80}
+      ,{templet: '<div>{{d.address.addphone}}</div>', title: '手机号', width: 80}
+      ,{templet: '<div>{{d.address.adprovince}}-{{d.address.adcity}}-{{d.address.addistrict}}-{{d.address.addstreet}}-{{d.address.detailaddress}}</div>', title: '地址', width: 80}
+      ,{templet: '#zhuangtai', title: '状态', width: 80}
+      ,{templet: "<div>{{layui.util.toDateString(d.ordertime,'yyyy-MM-dd HH:mm:ss')}}</div>",title: '下单时间', width: 150}
+      ,{templet: "<div>{{layui.util.toDateString(d.ordeliver,'yyyy-MM-dd HH:mm:ss')}}</div>",title: '发货时间', width: 150}
+      ,{field: 'orlogistics', title: '物流名称', width:100}
+      ,{field: 'oroddnum', title: '物流单号', width:100}
+      ,{field: 'freight', title: '运费', width:80}
+      ,{templet: '#shifoushanchu', title: '是否删除', width:100}
+      ,{field: 'totalprice', title: '总价格', width:100}
+      ,{title: '操作', toolbar:'#toolEventDemo', width: 200}
+    ]],
+    id:"orderType"
+  });
+  form.on('submit(search)', function(data){
+	  table.reload('orderType', {
+		  where:data.field  
+		});
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+  table.on('tool(test)', function(obj){ // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
+	  var data = obj.data; //获得当前行数据
+	  sessionStorage.setItem("order",JSON.stringify(data));
+	  console.log(data);
+	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+	  var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+	  if(layEvent === 'img'){
+	    	 layer.open({
+		    	  type:2,
+		    	  title:"查看详情",
+		    	  content:"OrdersDetail.html",
+		    	  area:["1000px","500px"],
+		    	  maxmin:true
+		   }); 
+	    }else if(layEvent === 'shanchu'){
+	    	 $.post("../OrdersController/shanchu",{"orderid":data.orderid},function(res){
+		 		  if(res.code=="0"){
+		 			  layer.msg(res.msg,{icon:1,time:2000},function(){
+		 				  table.reload('orderType');
+		 				  layer.closeAll();
+		 			  });
+		 		  }else{
+		 			  layer.msg(res.msg);
+		 		  }
+		 	  },"json");
+	    }else if(layEvent === 'waishanchu'){
+	    	 $.post("../OrdersController/waishanchu",{"orderid":data.orderid},function(res){
+		 		  if(res.code=="0"){
+		 			  layer.msg(res.msg,{icon:1,time:2000},function(){
+		 				  table.reload('orderType');
+		 				  layer.closeAll();
+		 			  });
+		 		  }else{
+		 			  layer.msg(res.msg);
+		 		  }
+		 	  },"json");
+	    }else if(layEvent === 'fahuo'){
+	    	form.val("fmupdate",data);
+	    	$("#upbiaodan")[0].reset();
+	    	 layer.open({
+		    	  type:1,
+		    	  title:"发货信息",
+		    	  content:$("#updiv"),
+		    	  area:["500px","600px"]
+		      });
+	    
+	    	
+	    }
+	});
+  //修改
+  form.on('submit(fahuo)', function(data){
+ 	 $.post("../OrdersController/fahuo",data.field,function(res){
+	 		  if(res.code=="0"){
+	 			  layer.msg(res.msg,{icon:1,time:2000},function(){
+	 				  table.reload('orderType');
+	 				  layer.closeAll();
+	 			  });
+	 		  }else{
+	 			  layer.msg(res.msg);
+	 		  }
+	 	  },"json");
+ 	 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+			});
+//自动生成订单编号
+  form.on('submit(shengcheng)', function(data){
+ 	 $.post("../OrdersController/shengcheng",data.field,function(res){
+	 		  if(res.code=="0"){
+	 			  layer.msg("生成成功",{icon:1,time:2000},function(){
+	 				 $("#oroddnum").val(res.msg);
+	 				 //setTimeout('window.location.reload()',1000);
+	 				  table.reload('orderType');
+	 				  
+	 			  });
+	 		  }else{
+	 			  layer.msg(res.msg);
+	 		  }
+	 	  },"json");
+ 	 			return false;
+			});
+
+
+	
+});
+</script>
+</html>

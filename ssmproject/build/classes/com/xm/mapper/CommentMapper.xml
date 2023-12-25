@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.CommentMapper">
+	<resultMap type="comment" id="com">
+		<id property="comid" column="comid"/>
+		<result property="pid" column="pid"/>
+		<result property="uid" column="uid"/>
+		<result property="comtime" column="comtime"/>
+		<result property="comrating" column="comrating"/>
+		<result property="comimgs" column="comimgs"/>
+		<result property="comcontet" column="comcontet"/>
+		<result property="comreply" column="comreply"/>
+		<result property="replytime" column="replytime"/>
+		<result property="replyperson" column="replyperson"/>
+		<result property="product.pid" column="pid"/>
+		<result property="product.pimg" column="pimg"/>
+		<result property="product.pstyle" column="pstyle"/>
+		<result property="user.uid" column="uid"/>
+		<result property="user.uname" column="uname"/>
+		<result property="user.uimg" column="uimg"/>
+		<result property="specification.pid" column="pid"/>
+		<result property="specification.scolor" column="scolor"/>
+		<result property="specification.soriginal" column="soriginal"/>
+		<result property="orders.uid" column="uid"/>
+		<result property="orders.orderstate" column="orderstate"/>
+		<result property="ordersDetail.pid" column="pid"/>
+		<result property="ordersDetail.price" column="price"/>
+	</resultMap>
+	<select id="Comments" resultMap="com" parameterType="int">
+		select * from comment where pid=#{pid}
+		ORDER BY comtime DESC
+	</select>
+	<select id="getComments" resultMap="com" parameterType="int">
+		select * from comment c
+		INNER JOIN product p on c.pid=p.pid
+		INNER JOIN user u on c.uid=u.uid
+		where p.pid=#{pid}
+		ORDER BY comtime DESC
+	</select>
+	<select id="AllComments" resultMap="com" parameterType="int">
+		select * from comment c
+		INNER JOIN product p on c.pid=p.pid
+		INNER JOIN specification s on c.pid=s.pid
+		INNER JOIN orders o on c.uid=o.uid
+		INNER JOIN ordersDetail od on c.pid=od.pid
+		where c.uid=#{uid} 
+	</select>
+	<insert id="AddComments" parameterType="comment">
+	insert into comment(pid,uid,comtime,comimgs,comcontet) values(#{pid},#{uid},NOW(),#{comimgs},#{comcontet})
+	</insert>
+</mapper>

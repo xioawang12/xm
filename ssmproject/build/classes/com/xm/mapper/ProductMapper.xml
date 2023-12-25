@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.ProductMapper">
+<resultMap type="product" id="pro">
+<id property="pid" column="pid"/>
+<result property="shoppingcart.shopid" column="shopid"/>
+<result property="shoppingcart.shopnumber" column="shopnumber"/>
+<result property="shoppingcart.shopprice" column="shopprice"/>
+<result property="specification.sid" column="sid"/>
+<result property="specification.scolor" column="scolor"/>
+<result property="specification.soriginal" column="soriginal"/>
+<result property="specification.sstock" column="sstock"/>
+<result property="pname" column="pname"/>
+<result property="cateid" column="cateid"/>
+<result property="category.cateid" column="cateid"/>
+<result property="category.catename" column="catename"/>
+<result property="category.parentid" column="parentid"/>
+<result property="pimg" column="pimg"/>
+<result property="pintro" column="pintro"/>
+<result property="pdetail" column="pdetail"/>
+<result property="pischoice" column="pischoice"/>
+<result property="pstate" column="pstate"/>
+<result property="pmaterial" column="pmaterial"/>
+<result property="pstyle" column="pstyle"/>
+<result property="proimg.imgid" column="imgid"/>
+<result property="proimg.imgurl" column="imgurl"/>
+</resultMap>
+<select id="findall" resultMap="pro" parameterType="productvo">
+select * from product p join category c on p.cateid=c.cateid
+<where>
+<if test="pname!=null and pname!=''">
+and pname like concat('%',#{pname},'%')
+</if>
+<if test="cateid!=null and cateid!=''">
+and p.cateid=#{cateid}
+</if>
+<if test="pstate!=null and pstate!=''">
+and pstate=#{pstate}
+</if>
+</where>
+<if test="page!=null and limit!=null">
+ limit ${(page-1)*limit},#{limit}
+</if>
+</select>
+<insert id="insertpro" parameterType="product">
+insert into product values(null,#{pname},#{cateid},#{pimg},#{pintro},#{pdetail},#{pischoice},#{pstate},#{pmaterial},#{pstyle})
+</insert>
+<update id="updatepro" parameterType="product">
+update product set pname=#{pname},cateid=#{cateid},pimg=#{pimg},pintro=#{pintro},pdetail=#{pdetail},pischoice=#{pischoice},pstate=#{pstate},pmaterial=#{pmaterial},pstyle=#{pstyle} where pid=#{pid}
+</update>
+<delete id="deletepro" parameterType="int">
+delete from product where pid=#{pid}
+</delete>
+<select id="getpro" resultType="product" parameterType="product">
+select * from product
+</select>
+<select id="getcateid" resultType="product" parameterType="int">
+select * from product where cateid=#{cateid}
+</select>
+<update id="shangjia" parameterType="product">
+update product set pstate=0 where pid=#{pid}
+</update>
+<update id="xiajia" parameterType="product">
+update product set pstate=1 where pid=#{pid}
+</update>
+<update id="pishang" parameterType="string">
+update product set pstate=0 where pid in(${ids})
+</update>
+<update id="pixia" parameterType="string">
+update product set pstate=1 where pid in(${ids})
+</update>
+<select id="getname" parameterType="product" resultType="product">
+select * from product where pname=#{pname}
+</select>
+<select id="getQtaipro" resultType="product" parameterType="product">
+select * from product LIMIT 5
+</select>
+<select id="getLeiShang" resultMap="pro" parameterType="product">
+select * from product p 
+inner join category c on p.cateid=c.cateid 
+<!-- inner join proimg pr on pr.pid=p.pid 
+inner join specification sp on sp.pid=p.pid  -->
+where p.cateid=#{cateid}
+</select>
+<select id="getDetail" resultMap="pro" parameterType="int">
+	select * from product pro
+	INNER JOIN specification s on pro.pid=s.pid
+	inner join category c on pro.cateid=c.cateid
+	where pstate=0 and pro.pid=#{pid}
+	
+</select>
+<select id="getprospec" parameterType="int" resultMap="pro">
+select * from product p join specification sp on sp.pid=p.pid where p.pid=#{pid}
+</select>
+
+	<select id="getcate" resultMap="pro" parameterType="string">
+	select * from product p 
+inner join category c on p.cateid=c.cateid
+inner join shoppingcart s on p.pid=s.pid
+inner join specification sp on s.sid=sp.sid
+where s.shopid in(${ids})
+	</select>
+
+
+</mapper>

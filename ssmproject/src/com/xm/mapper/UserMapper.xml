@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.UserMapper">
+<select id="login" parameterType="user" resultType="user">
+select * from user where uname=#{uname} and upwd=#{upwd}
+</select>
+<update id="upimg" parameterType="user">
+update user set uimg=#{uimg},uphone=#{uphone},uemail=#{uemail} where uid=#{uid}
+</update>
+<update id="uppwd" parameterType="user">
+update user set upwd=#{upwd4} where uid=#{uid}
+</update>
+<insert id="adduser" parameterType="user">
+insert into user values(null,#{uname},#{upwd},#{uphone},#{uemail},null,null,null,0,1,null)
+</insert>
+<select id="getuname" parameterType="user" resultType="user">
+select * from user where uname=#{uname}
+</select>
+<select id="getuserid" resultType="user" parameterType="int">
+select * from user where uid=#{uid}
+</select>
+<update id="updateUser" parameterType="user">
+update user set ubirthday=#{ubirthday},usex=#{usex} where uid=#{uid}
+</update>
+<update id="updateUimg" parameterType="user">
+update user set uimg=#{uimg} where uid=#{uid}
+</update>
+</mapper>

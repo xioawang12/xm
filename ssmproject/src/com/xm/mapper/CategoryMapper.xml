@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.CategoryMapper">
+<select id="findall" resultType="category" parameterType="category">
+select * from category
+<where>
+<if test="catename!=null and catename!=''">
+and catename like concat('%',#{catename},'%')
+</if>
+</where>
+<if test="page!=null and limit!=null">
+ limit ${(page-1)*limit},#{limit}
+</if>
+</select>
+<select id="oneall" resultType="category">
+select * from category where parentid=0
+</select>
+<select id="gettype" resultType="category">
+select * from category
+</select>
+<insert id="inserttype" parameterType="category">
+insert into category values(null,#{catename},#{parentid})
+</insert>
+<update id="updatetype" parameterType="category">
+update category set catename=#{catename},parentid=#{parentid} where cateid=#{cateid}
+</update>
+<delete id="deletetype"  parameterType="category">
+delete from category where cateid=#{cateid}
+</delete>
+<select id="getname" resultType="category" parameterType="category">
+select * from category where catename=#{catename}
+</select>
+<select id="getQianW" resultType="category" parameterType="category">
+select * from category LIMIT 5
+</select>
+</mapper>

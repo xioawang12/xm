@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.AddressMapper">
+<resultMap type="address" id="ad">
+<id property="adid" column="adid"/>
+<result property="uid" column="uid"/>
+<result property="user.uid" column="uid"/>
+<result property="user.uname" column="uname"/>
+<result property="user.uimg" column="uimg"/>
+<result property="adprovince" column="adprovince"/>
+<result property="adcity" column="adcity"/>
+<result property="addistrict" column="addistrict"/>
+<result property="addstreet" column="addstreet"/>
+<result property="detailaddress" column="detailaddress"/>
+<result property="addname" column="addname"/>
+<result property="addphone" column="addphone"/>
+</resultMap>
+<insert id="insertAddress" parameterType="address">
+insert into address values(null,#{uid},#{adprovince},#{adcity},#{addistrict},#{addstreet},#{detailaddress},#{addname},#{addphone},0,0)
+</insert>
+<select id="getuserid" resultMap="ad" parameterType="int">
+select * from address a join user u on a.uid=u.uid where a.uid=#{uid} and ruanshan=0 ORDER BY moren DESC
+</select>
+<select id="getMo" resultMap="ad" parameterType="int">
+select * from address a join user u on a.uid=u.uid where a.uid=#{uid} and moren=1
+</select>
+<update id="updateAddress" parameterType="address">
+update address set uid=#{uid},adprovince=#{adprovince},adcity=#{adcity},addistrict=#{addistrict},addstreet=#{addstreet},detailaddress=#{detailaddress},addname=#{addname},addphone=#{addphone},ruanshan=0,moren=#{moren} where adid=#{adid}
+</update>
+<update id="deleteAddress" parameterType="int">
+update address set ruanshan=1 where adid=#{adid}
+</update>
+<update id="Moren" parameterType="address">
+update address set moren=0 where adid=#{adid}
+</update>
+<update id="Morenyi" parameterType="address">
+update address set moren=1 where adid=#{adid}
+</update>
+<select id="danAddress" resultType="address" parameterType="int">
+select * from address where adid=#{adid}
+</select>
+</mapper>

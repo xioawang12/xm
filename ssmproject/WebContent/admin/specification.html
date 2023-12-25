@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="layui-form-item" style="margin-top: 20px;">
+		<form class="layui-form" onsubmit="return false;">
+			<label class="layui-form-label">名称:</label>
+			<div class="layui-input-inline" style="width: 200px;">
+				<input type="text" name="scolor" autocomplete="off"
+					class="layui-input">
+			</div>
+			<label class="layui-form-mid">价格:</label>
+			<div class="layui-input-inline" style="width: 80px;">
+				<input type="text" name="minSoriginal" autocomplete="off"
+					class="layui-input">
+			</div>
+			<label class="layui-form-mid">--</label>
+			<div class="layui-input-inline" style="width: 80px;">
+				<input type="text" name="maxSoriginal" autocomplete="off"
+					class="layui-input">
+			</div>
+				<button class="layui-btn" lay-submit lay-filter="search">搜索</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				<button class="layui-btn" lay-submit lay-filter="delBatch">批量删除</button>
+		</form>
+	</div>
+	<table id="demo" lay-filter="test"></table>
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">添加</button>
+  </div>
+</script>
+	<script type="text/html" id="toolEventDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<!-- 添加div 开始-->
+	<div style="display: none" id="addspecification">
+		<form class="layui-form" lay-filter="feedit" action="" id="addform">
+			<div class="layui-form-item">
+				<label class="layui-form-label">克数</label>
+				<div class="layui-input-inline">
+				<input type="hidden" name="pid"/>
+					<input type="text" name="scolor" required lay-verify="required"
+						placeholder="请输入克数" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">价格</label>
+				<div class="layui-input-inline">
+					<input type="text" name="soriginal" required lay-verify="required"
+						placeholder="请输入价格" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">库存</label>
+				<div class="layui-input-inline">
+					<input type="text" name="sstock" required lay-verify="required"
+						placeholder="请输入库存" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="btnAdd">添加</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 添加div 结束-->
+		<!-- 修改div 开始-->
+	<div style="display: none" id="updatespecification">
+		<form class="layui-form" lay-filter="fmUpdate" action="" id="addform">
+			<div class="layui-form-item">
+				<label class="layui-form-label">克数</label>
+				<div class="layui-input-inline">
+					<input type="hidden" name="sid"> 
+					<input type="hidden" name="pid">
+					<input type="text"
+						name="scolor" required lay-verify="required" placeholder="请输入克数"
+						autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">价格</label>
+				<div class="layui-input-inline">
+					<input type="text" name="soriginal" required lay-verify="required"
+						placeholder="请输入价格" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">库存</label>
+				<div class="layui-input-inline">
+					<input type="text" name="sstock" required lay-verify="required"
+						placeholder="请输入库存" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="btnUpdate">修改</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 修改div 结束-->
+<script>
+layui.use(['table', 'form','upload','laydate','laypage'], function(){
+	var table = layui.table,
+	form = layui.form,
+	laydate=layui.laydate,
+	laypage = layui.laypage,
+	 upload = layui.upload,
+	$=layui.$;
+	var data=JSON.parse(sessionStorage.getItem("product"));
+	
+  //第一个实例
+  table.render({
+	    elem: '#demo'
+	    ,toolbar: '#toolbarDemo'
+	    ,height: 500
+	    ,url: '../SpecificationController/findByPage' //数据接口
+	    ,page: true //开启分页
+	    ,method:"post"
+	    ,cols: [[ //表头
+	    	{checkbox:true}
+	      ,{field: 'sid', title: 'ID', width:80,}
+	      ,{field: 'scolor', title: '克数', width:80}
+	      ,{field: 'soriginal', title: '价格', width:80, sort: true}
+	      ,{templet: '<div>{{d.product.pname}}</div>', title: '商品', width: 150}
+	      ,{field: 'sstock', title: '库存', width: 80}
+	      ,{title: '操作', toolbar:'#toolEventDemo', width: 200}
+	    ]]
+	  ,id:"specificationTable"
+		,where:{"pid":data.pid}
+	  });
+  form.on('submit(search)', function(data){
+	  table.reload('specificationTable', {
+		  where:data.field  
+		});
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+  
+  table.on('toolbar(test)', function(obj){
+	   var checkStatus = table.checkStatus(obj.config.id);
+	   switch(obj.event){
+	     case 'add':
+	    	 $("#addform")[0].reset();//重置添加表单，清空上一次数据
+	    	 form.val("feedit",data);
+	   	  layer.open({
+	   		  type:1,
+	   		  title:"添加规格",
+	   		  content:$("#addspecification"),
+	   		  area:["500px","400px"],
+	   		  maxmin:true 
+	   	  });
+	   		break;
+	   };
+	 });
+  
+//监听添加
+  form.on('submit(btnAdd)', function(data){
+	  console.log(data);
+	 $.post("../SpecificationController/insertSpecification",data.field,function(res){
+		 if(res.code==0){
+			 layer.msg(res.msg,{time:2000},function(){
+				 layer.closeAll();//关闭弹窗
+				 table.reload('specificationTable');//重置表格
+			 });
+		 }else{
+			  layer.msg(res.msg);
+		  }
+	  },"json");
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+//单元格工具事件
+  table.on('tool(test)', function(obj){ // 注：test 是 table 原始标签的属性 lay-filter="对应的值"
+    var data = obj.data; //获得当前行数据
+    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+    var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+   if(layEvent === 'del'){ //删除
+      layer.confirm('确定删除吗？', function(index){
+      $.post("../SpecificationController/deleteById",{"pid":data.sid},function(res){
+    	  if(res.code==0){
+ 			 layer.msg(res.msg,{time:2000},function(){
+ 				 layer.closeAll();//关闭弹窗
+ 				 table.reload('specificationTable');//重置表格
+ 			 });
+ 		 }else{
+ 			  layer.msg(res.msg);
+ 		  }
+ 	  },"json");
+      });
+    } else if(layEvent === 'edit'){ //编辑
+    	form.val('fmUpdate',data);//赋值
+    	layer.open({
+  		  type:1,
+  		  title:"修改规格",
+  		  content:$("#updatespecification"),
+  		  area:["500px","400px"],
+  		  maxmin:true 
+  	  });
+    }
+  });
+//监听修改
+  form.on('submit(btnUpdate)', function(data){
+	  console.log(data);
+	 $.post("../SpecificationController/updateSpecification",data.field,function(res){
+		 if(res.code==0){
+			 layer.msg(res.msg,{time:2000},function(){
+				 layer.closeAll();//关闭弹窗
+				 table.reload('specificationTable');//重置表格
+			 });
+		 }else{
+			  layer.msg(res.msg);
+		  }
+	  },"json");
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+	//多个删
+  form.on('submit(delBatch)', function(data){
+		 var data=table.checkStatus("specificationTable").data;//获取选中行数据
+		 var idArr=[];
+		 if(data!=null&&data.length>0){
+			 for(var i=0;i<data.length;i++){
+				 idArr.push(data[i].sid);
+			 }
+			 var ids=idArr.join(",");
+			 layer.confirm("确定删除"+ids+"吗？",function(index){
+				 $.post("../SpecificationController/deleteByIds",{"ids":ids},function(res){
+			    	  if(res.code==0){
+			 			 layer.msg(res.msg,{time:2000},function(){
+			 				 layer.closeAll();//关闭弹窗
+			 				 table.reload('specificationTable');//重置表格
+			 			 });
+			 		 }else{
+			 			  layer.msg(res.msg);
+			 		  }
+			 	  },"json");
+			 });
+		 }else{
+			 layer.msg("请选择你要删除的商品");
+		 }
+		  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+		});
+});
+</script>
+</body>
+</html>

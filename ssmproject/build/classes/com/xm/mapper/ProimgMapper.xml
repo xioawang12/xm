@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.ProimgMapper">
+<resultMap type="proimg" id="img">
+<id property="imgid" column="imgid"/>
+<result property="pid" column="pid"/>
+<result property="product.pid" column="pid"/>
+<result property="product.pname" column="pname"/>
+<result property="imgurl" column="imgurl"/>
+<result property="iweight" column="iweight"/>
+</resultMap>
+<select id="findall" resultMap="img" parameterType="proimg">
+select * from proimg i join product pr on i.pid=pr.pid
+<where>
+<if test="pid!=null and pid!=''">
+and i.pid=#{pid} 
+</if>
+</where>
+order by iweight desc
+<if test="page!=null and limit!=null">
+ limit ${(page-1)*limit},#{limit}
+</if>
+</select>
+<insert id="insertimg" parameterType="proimg">
+insert into proimg values(null,#{pid},#{imgurl},#{iweight})
+</insert>
+<select id="getpid" resultType="proimg" parameterType="int">
+select * from proimg where pid=#{pid}
+</select>
+<update id="updateimg" parameterType="proimg">
+update proimg set pid=#{pid},imgurl=#{imgurl},iweight=#{iweight} where imgid=#{imgid}
+</update>
+<delete id="deleteimg" parameterType="int">
+delete from proimg where imgid=#{imgid}
+</delete>
+</mapper>

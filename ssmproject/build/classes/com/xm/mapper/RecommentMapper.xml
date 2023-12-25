@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.RecommentMapper">
+	<resultMap type="recomment" id="recomments">
+		<id property="recomid" column="recomid" />
+		<result property="pid" column="pid" />
+		<result property="product.pid" column="pid" />
+		<result property="product.pname" column="pname" />
+		<result property="product.pimg" column="pimg" />
+		<result property="product.cateid" column="cateid" />
+		<result property="product.pstate" column="pstate" />
+		<result property="locid" column="locid" />
+		<result property="recommentlocation.locid" column="locid" />
+		<result property="recommentlocation.location" column="location" />
+		<result property="rweight" column="rweight" />
+		<result property="recomcate" column="recomcate" />
+	</resultMap>
+	<select id="findbyRecommentpage" resultMap="recomments"
+		parameterType="recommentvo">
+SELECT*FROM recomment r
+ INNER JOIN product p ON p.pid=r.pid
+ INNER JOIN recommentlocation c ON c.locid=r.locid
+		<where>
+			<if test="locid!=null and locid!=''">
+				and r.locid =#{locid}
+			</if>
+			
+		</where>
+		order by rweight desc
+		<if test="page!=null and limit!=null">
+			limit ${(page-1)*limit},#{limit}
+		</if>
+	</select>
+	<insert id="insertRecomment" parameterType="recomment">
+		insert into recomment values(null,#{pid},#{locid},#{rweight},#{recomcate})
+	</insert>
+	<update id="updateRecomment" parameterType="recomment">
+		update recomment set pid=#{pid},locid=#{locid},rweight=#{rweight},recomcate=#{recomcate}
+		where recomid=#{recomid}
+	</update>
+	<delete id="deleteRecomment" parameterType="int">
+		delete from recomment where recomid in(#{id})
+	</delete>
+	<select id="findall" resultType="recomment" parameterType="int">
+	select * from recomment where locid=#{locid}
+	</select>
+	<select id="getname" resultType="recomment" parameterType="recomment">
+	select * from recomment where pid=#{pid} and locid=#{locid}
+	</select>
+	<select id="QianReco" resultMap="recomments" parameterType="recomment">
+SELECT*FROM recomment r
+ INNER JOIN product p ON p.pid=r.pid
+ INNER JOIN recommentlocation c ON c.locid=r.locid
+ where p.pstate=0 and r.locid=#{locid}
+ order by rweight desc
+ </select>
+ 	<select id="QianRecos" resultMap="recomments" parameterType="recomment">
+SELECT*FROM recomment r
+ INNER JOIN product p ON p.pid=r.pid
+ INNER JOIN recommentlocation c ON c.locid=r.locid 
+ where pstate=0
+ ORDER BY rweight DESC
+ </select>
+
+</mapper>

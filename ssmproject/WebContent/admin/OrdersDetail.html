@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+ <script type="text/javascript" src="../js/jquery.min.js"></script>
+ <script type="text/javascript" src="../layui/layui.js"></script>
+</head>
+<style>
+.layui-table-cell {
+	height: auto;
+}
+</style>
+<body>
+<form class="layui-form" action="" lay-filter="fmupdate">
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">收件人</label>
+      <div class="layui-input-inline">
+      <input type="hidden" name="orderid">
+        <input type="text" name="addname"  id="addname" lay-verify="title" autocomplete="off" class="layui-input ">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">手机号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="addphone"  id="addphone" lay-verify="title" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">物流单号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="oroddnum"  id="oroddnum" lay-verify="title" autocomplete="off" class="layui-input ">
+      </div>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">地址</label>
+      <div class="layui-input-inline">
+        <input type="text" name="dizhi"  id="dizhi" lay-verify="title" autocomplete="off" class="layui-input ">
+      </div>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">详细地址</label>
+      <div class="layui-input-inline">
+        <input type="text" name="detailaddress"  id="detailaddress" lay-verify="title" autocomplete="off" class="layui-input ">
+      </div>
+    </div>
+  </div>
+</form>
+<table id="demo" lay-filter="test"></table>
+</body>
+<script src="/layui/layui.js"></script>
+<script>
+layui.use(['table', 'form','laydate','laypage','upload'], function(){
+	var table = layui.table,
+	form = layui.form,
+	upload =layui.upload,
+	laydate=layui.laydate,
+	laypage = layui.laypage,
+	$=layui.$;
+	var data=JSON.parse(sessionStorage.getItem("order"))
+	console.info(data);
+	$.post("../OrdersController/getxiangqing",{"orderid":data.orderid},function(res){
+		console.log(res+"dddd");
+		var data=res.data;
+		console.log(data);
+		$("#addname").val(data[0].address.addname);
+		$("#addphone").val(data[0].address.addphone);
+		$("#oroddnum").val(data[0].oroddnum);
+		$("#dizhi").val(data[0].address.adprovince+"-"+data[0].address.adcity+"-"+data[0].address.addistrict+"-"+data[0].address.addstreet);
+		$("#detailaddress").val(data[0].address.detailaddress);
+		form.val('fmupdate',data.address);
+	},"json");
+  //第一个实例
+  table.render({
+    elem: '#demo'
+    ,height: 500
+    ,url: '../OrdersDetailController/findOrdersDetail' //数据接口
+    ,method:'post'
+    ,page: true //开启分页
+    ,cols: [[ //表头
+    	{checkbox:true}
+      ,{templet: '<div>{{d.product.pname}}</div>', title: '推荐商品', width:80}
+      ,{templet: "<div><img src='../images/{{d.product.pimg}}'/></div>", title: '商品图片', width: 120}
+      ,{templet: '<div>{{d.specification.scolor}}</div>', title: '规格id', width:80}
+      ,{field: 'number', title: '数量', width:80}
+      ,{field: 'price', title: '价格', width:80}
+    ]]
+     ,id:'OrdersDetailType'
+     ,where:{"orderid":data.orderid}
+  });
+  form.on('submit(search)', function(data){
+	  table.reload('OrdersDetailType', {
+		  where:data.field  
+		});
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+  
+	
+});
+</script>
+</html>
