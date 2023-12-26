@@ -37,16 +37,13 @@
 			<div class="wrapper clearfix">
 				<a href="../IndexController/getindex" class="fl">首页</a>
 				<span>/</span>
-				<c:forEach items="${user}" var="user" >
 				<a href="../MyginController/getUser?uid=${user.uid}" class="on">个人中心</a>
-				</c:forEach>
 			</div>
 		</div>
 		
 		<!------------------------------Bott------------------------------>
 		<div class="Bott">
 			<div class="wrapper clearfix">
-			<c:forEach items="${user}" var="user" >
 				<div class="zuo fl">
 					<h3>
 						<a href="#"><img src="../images/${user.uimg} " width="92px" height="92px" style="border-radius: 100px"/></a>
@@ -144,31 +141,26 @@
 			</form>
 		</div>
 		
-		</c:forEach>
 		<!--返回顶部-->
 		<div class="gotop">
-		<c:forEach items="${user}" var="user" >
 			<a href="../CartController/Gowu?uid=${user.uid}">
 			<dl>
 				<dt><img src="../qian/img/gt1.png"/></dt>
 				<dd>去购<br />物车</dd>
 			</dl>
 			</a>
-			</c:forEach>
 			<a href="#" class="dh">
 			<dl>
 				<dt><img src="../qian/img/gt2.png"/></dt>
 				<dd>联系<br />客服</dd>
 			</dl>
 			</a>
-			<c:forEach items="${user}" var="user" >
 			<a href="../MygrxxController/getUser?uid=${user.uid}">
 			<dl>
 				<dt><img src="../qian/img/gt3.png"/></dt>
 				<dd>个人<br />中心</dd>
 			</dl>
 			</a>
-			</c:forEach>
 			<a href="#" class="toptop" style="display: none">
 			<dl>
 				<dt><img src="../qian/img/gt4.png"/></dt>

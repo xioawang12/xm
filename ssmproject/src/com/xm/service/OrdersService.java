@@ -24,5 +24,6 @@ public interface OrdersService {
 	int Qianxiu(Orders orders);
 	List<Orders> Danbiao(int orderid);
 	int updateOrderss(Orders orders);
+	List<Orders> getshoppords(Orders orders);
 }
 

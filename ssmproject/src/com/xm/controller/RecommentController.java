@@ -15,7 +15,12 @@ import com.xm.utils.Result;
 @RequestMapping("/recomment")
 public class RecommentController {
 	@Autowired
- RecommentService recommentService;
+	RecommentService recommentService;//调用推荐的service
+	/**
+	 * 多条件查
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/findbyRecommentpage")
 	@ResponseBody
 	public Result findbyRecommentpage(Recommentvo recommentvo) {
@@ -32,10 +37,16 @@ public class RecommentController {
 		}
 		return r;
 		}
+		/**
+		* 添加
+		* @param
+		* @return
+		*/
 		@RequestMapping("/insertRecomment")
 		@ResponseBody
 		public Result insertProduct(Recomment recomment) {
 			Result r;
+			//根据商品id和推荐位置id查是否有值
 			List<Recomment>getrec=recommentService.getname(recomment);
 			if(getrec.size()>0) {
 				r=new Result(1, "不能推荐同商品在同推荐位置");
@@ -49,9 +60,15 @@ public class RecommentController {
 			}
 			return r;
 		}
+		/**
+		 * 根据推荐id修改
+		 * @param
+		 * @return
+		 */
 		@RequestMapping("/updateRecomment")
 		@ResponseBody
 		public Result updateRecomment(Recomment recomment) {
+			//根据推荐位置id查是否有值
 			List<Recomment>listrec=recommentService.findall(recomment.getLocid());
 			Result r;
 			if(listrec.size()>0) {
@@ -66,6 +83,11 @@ public class RecommentController {
 			}
 			return r;
 		}
+		/**
+		 * 根据推荐id删除
+		 * @param
+		 * @return
+		 */
 		@RequestMapping("/deleteRecomment")
 		@ResponseBody
 		public Result deleteProduct(int id) {
@@ -78,6 +100,11 @@ public class RecommentController {
 			}
 			return r;
 		}
+		/**
+		 * 根据推荐位置id查
+		 * @param
+		 * @return
+		 */
 		@RequestMapping("/findall")
 		@ResponseBody
 		public Result findall(int locid) {

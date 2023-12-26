@@ -43,9 +43,14 @@ public class OrdersDetailServiceImpl implements OrdersDetailService {
 		return ordersDetailMapper.QianXiang(orderid);
 	}
 	@Override
-	public List<OrdersDetail> quanchaOrdersDetail(int id) {
+	public List<OrdersDetail> quanchaOrdersDetail(int uid,int orderid) {
 		// TODO Auto-generated method stub
-		return ordersDetailMapper.quanchaOrdersDetail(id);
+		return ordersDetailMapper.quanchaOrdersDetail(uid,orderid);
+	}
+	@Override
+	public List<OrdersDetail> quanchaOrdersDetails(int uid) {
+		// TODO Auto-generated method stub
+		return ordersDetailMapper.quanchaOrdersDetails(uid);
 	}
 
 

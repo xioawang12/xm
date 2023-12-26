@@ -16,7 +16,14 @@ import com.xm.utils.Result;
 @RequestMapping("/UpdateMygrxxController")
 public class UpdateMygrxxController {
 	@Autowired
-	UserService userService;
+	UserService userService;//用户service
+	/**
+	 * 用户修改
+	 * @param ubirthday
+	 * @param usex
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public Result updateUser(@Param("ubirthday")String ubirthday,@Param("usex")String usex,@Param("uid")int uid) {
@@ -32,6 +39,12 @@ public class UpdateMygrxxController {
 		
 		return r;
 	}
+	/**
+	 * 用户修改图片
+	 * @param uimg
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/updateUimg")
 	@ResponseBody
 	public Result updateUimg( String uimg,int uid) {

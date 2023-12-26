@@ -20,19 +20,45 @@ import com.xm.service.AddressService;
 import com.xm.service.CategoryService;
 import com.xm.service.OrdersDetailService;
 import com.xm.service.OrdersService;
+import com.xm.service.UserService;
 import com.xm.utils.Result;
 
 @Controller
 @RequestMapping("/MyorderqController")
 public class MyorderqController {
+	/**
+	 * 商品类型
+	 */
 	@Autowired
 	CategoryService CategoryService;//类别service
+	/**
+	 * 地址
+	 */
 	@Autowired
 	AddressService AddressService;
+	/**
+	 * 订单
+	 */
 	@Autowired
 	OrdersService OrdersService;
+	/**
+	 * 订单详细
+	 */
 	@Autowired
 	OrdersDetailService OrdersDetailService;
+	/**
+	 * 用户
+	 */
+	@Autowired
+	UserService userService;
+	/**
+	 * 存地址/商品类型/订单/订单详细数据进入订单页面
+	 * @param model
+	 * @param uid
+	 * @param orderstate
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/Myorderq")
 	public String Myorderq(Model model,int uid,String orderstate,HttpSession session) {
 		List<Address> ad=AddressService.getuserid(uid);
@@ -47,7 +73,11 @@ public class MyorderqController {
 		model.addAttribute("osers", osers);
 		return "myorderq";
 	}
-	
+	/**
+	 * 修改订单状态变为4待收货
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/QianxiuMy")
 	@ResponseBody
 	public Result Qianxiu(Orders orders) {
@@ -60,6 +90,11 @@ public class MyorderqController {
 		}
 		return r;
 	}
+	/**
+	 * 订单单表查询
+	 * @param orderid
+	 * @return
+	 */
 	@RequestMapping("/Danbiao")
 	@ResponseBody
 	public Result Danbiao(int orderid) {

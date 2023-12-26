@@ -17,7 +17,12 @@ import com.xm.utils.Result;
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
-	UserService userservice;
+	UserService userservice;//调用用户的service
+	/**
+	 * 根据用户名称和用户密码全查
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/login")
 	@ResponseBody
 	public Result login(User user,HttpSession session) {
@@ -36,6 +41,11 @@ public class UserController {
 		}
 		return r;
 	}
+	/**
+	 * 根据用户id修改头像
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/upuimg")
 	@ResponseBody
 	public Result upuimg(User user) {
@@ -48,6 +58,11 @@ public class UserController {
 		}
 		return r;
 	}
+	/**
+	 * 根据用户id修改密码
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/uppwd")
 	@ResponseBody
 	public Result uppwd(User user) {

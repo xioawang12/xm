@@ -19,10 +19,21 @@ import com.xm.utils.Result;
 @Controller
 @RequestMapping("/AddressController")
 public class AddressController {
+	/**
+	 * 商品类型
+	 */
 	@Autowired
 	CategoryService CategoryService;//类别service
+	/**
+	 * 地址
+	 */
 	@Autowired
 	AddressService AddressService;
+	/**
+	 * 地址添加
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/insertpro")
 	@ResponseBody
 	public Result insertpro(Address add) {
@@ -35,6 +46,11 @@ public class AddressController {
 			}
 		return r;
 	}
+	/**
+	 * 地址修改
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/updateAddress")
 	@ResponseBody
 	public Result updateAddress(Address add) {
@@ -47,6 +63,13 @@ public class AddressController {
 		}
 		return r;
 	}
+	/**
+	 * 存地址数据进入地址页面
+	 * @param model
+	 * @param uid
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/addres")
 	public String addres(Model model,int uid,HttpSession session) {
 		List<Address> ad=AddressService.getuserid(uid);
@@ -57,7 +80,11 @@ public class AddressController {
 		model.addAttribute("ad", ad);
 		return "address";
 	}
-	
+	/**
+	 * 查用户地址已默认的
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/getMo")
 	@ResponseBody
 	public Result getMo(int uid) {
@@ -70,6 +97,12 @@ public class AddressController {
 		}
 		return r;
 	}
+	/**
+	 * 查用户软删按默认降序
+	 * @param add
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/getadd")
 	@ResponseBody
 	public Result getadd(Address add,int uid) {
@@ -82,7 +115,11 @@ public class AddressController {
 		}
 		return r;
 	}
-	
+	/**
+	 * 地址查
+	 * @param adid
+	 * @return
+	 */
 	@RequestMapping("/deleteAddress")
 	@ResponseBody
 	public Result deleteAddress(int adid) {
@@ -95,6 +132,11 @@ public class AddressController {
 		}
 		return r;
 	}
+	/**
+	 * 修改已默认
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/Morenyi")
 	@ResponseBody
 	public Result Morenyi(Address add) {
@@ -107,6 +149,11 @@ public class AddressController {
 		}
 		return r;
 	}
+	/**
+	 * 修改取消默认
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/Moren")
 	@ResponseBody
 	public Result Moren(Address add) {

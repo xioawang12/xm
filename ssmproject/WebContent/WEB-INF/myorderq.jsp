@@ -103,6 +103,9 @@
 					<c:if test="${os.orderstate==4}">
 						<p class="one fl">已收货</p>
 					</c:if>
+						<c:if test="${os.orderstate==5}">
+						<p class="one fl">已评论</p>
+						</c:if>
 						<div class="word clearfix">
 							<ul class="fl clearfix">
 								
@@ -117,7 +120,20 @@
 						 <c:if test="${os.orderid==osers.orders.orderid}">
 						<div class="shohou clearfix">
 							<a href="#" class="fl"><img src="../images/${osers.product.pimg}"/></a>
-							<p class="fl"><a href="#">${osers.product.pname}</a><a href="#">¥${osers.price}×${osers.number}</a></p>
+							<p class="fl"><a href="#" style="font-size: 15px;">${osers.product.pname}</a>
+							<a href="#" style="font-size: 15px;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${osers.specification.scolor}</a>
+							<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>¥${osers.price}×${osers.number}</h3></a></p>
 							
 						</div>
 						</c:if>
@@ -134,7 +150,7 @@
 						<a href="#" onclick="oes(${os.orderid})">确认收货</a>
 					    </c:if>
 					   <c:if test="${os.orderstate==4}">
-						<a href="../MyprodController/AllComments?uid=${user.uid}" >去评价</a>
+						<a href="../MyprodController/AllCommentss?uid=${user.uid}&orderid=${os.orderid}" >去评价</a>
 					   </c:if>
 						<a href="../OrderXqController/Orderxq?uid=${user.uid}&orderid=${os.orderid}">订单详情</a>
 							</p>
@@ -222,3 +238,4 @@
 		<script src="../qian/js/user.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>
+

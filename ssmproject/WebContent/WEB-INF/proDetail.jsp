@@ -238,10 +238,12 @@
 			var shopprice=document.getElementById('yj').innerText;
 			var shopnumber=document.getElementById('number').innerText;
 			var xx=shopnumber*shopprice
-			console.log(xx)
-			 $.post("../ProDetailController/getpsid",{"pid":pid,"sid":sid},function(res){
+			console.log(pid)
+			console.log(sid)
+			console.log(uid)
+			 $.post("../ProDetailController/getpsid",{"pid":pid,"sid":sid,"uid":uid},function(res){
         		if(res.code=="0"){
-        			 console.log("获取data"+res)
+        			 console.log(res)
           			var num1=res.data[0].shopnumber
           			console.log("获取数据库里的数量"+parseInt(num1))
           			var price1=res.data[0].shopprice

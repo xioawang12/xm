@@ -96,7 +96,10 @@ public interface ProductMapper {
 	 * @return
 	 */
 	public List<Product> getDetail(int pid);
-	
+	/**
+	 * 商品id全查
+	 * @return
+	 */
 	public List<Product> getprospec(int pid);
 	/**
 	 * 点击结算传值

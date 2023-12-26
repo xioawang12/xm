@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="pid" column="pid" />
 		<result property="product.pid" column="pid" />
 		<result property="product.pname" column="pname" />
-		<result property="product.cateid" column="cateid" />
 		<result property="product.pimg" column="pimg" />
+		<result property="product.cateid" column="cateid" />
 		<result property="orderid" column="orderid" />
 		<result property="orders.orderid" column="orderid" />
 		<result property="orders.orderstate" column="orderstate" />
@@ -84,6 +84,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN product p on od.pid=p.pid
 		INNER JOIN Orders o on od.orderid=o.orderid
 		INNER JOIN specification s on od.sid=s.sid
-		where uid=#{id}
+		where uid=#{uid} and od.orderid=#{orderid}
+		ORDER BY o.orderid DESC
+	</select>
+	<select id="quanchaOrdersDetails" resultMap="od" parameterType="int">
+		select * from OrdersDetail od
+		INNER JOIN product p on od.pid=p.pid
+		INNER JOIN Orders o on od.orderid=o.orderid
+		INNER JOIN specification s on od.sid=s.sid
+		where uid=#{uid} 
+		ORDER BY o.orderid DESC
 	</select>
 </mapper>

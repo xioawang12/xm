@@ -22,15 +22,32 @@ import com.xm.utils.Result;
 @Controller
 @RequestMapping("/CartController")
 public class CartController {
+	/**
+	 * 商品类型
+	 */
 	@Autowired
 	CategoryService CategoryService;//类别service
-
+	/**购物车
+	 * 
+	 */
 	@Autowired
 	ShoppingcartService ShoppingcartService;
+	/**
+	 * 订单
+	 */
 	@Autowired
 	OrdersService ordersService;
+	/**
+	 * 订单详细
+	 */
 	@Autowired
 	OrdersDetailService ordersDetailService;
+	/**
+	 * 存购物数据进入购物车页面
+	 * @param model
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/Gowu")
 public String Gowu(Model model,int uid ) {
 	List<Shoppingcart> sho=ShoppingcartService.findShoppingcart(uid);
@@ -41,7 +58,11 @@ public String Gowu(Model model,int uid ) {
 	model.addAttribute("sho", sho);
 	return "cart";
 }
-	
+	/**
+	 * 购物车单删除
+	 * @param shopid
+	 * @return
+	 */
 	@RequestMapping("/deletcart")
 	@ResponseBody
 	public Result deletcart(int shopid) {
@@ -54,6 +75,11 @@ public String Gowu(Model model,int uid ) {
 			}
 		return r;
 	}
+	/**
+	 * 购物车多删
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/deleteAllShoppingcart")
 	@ResponseBody
 	public Result deleteAllShoppingcart(String ids) {
@@ -66,6 +92,11 @@ public String Gowu(Model model,int uid ) {
 			}
 		return r;
 	}
+	/**
+	 * 订单添加
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/insertOrders")
 	@ResponseBody
 	public Result insertOrders(Orders orders) {
@@ -78,6 +109,11 @@ public String Gowu(Model model,int uid ) {
 			}
 		return r;
 	}
+	/**
+	 * 订单查询
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/getshoppord")
 	@ResponseBody
 	public Result getshoppord(Orders orders) {
@@ -90,6 +126,11 @@ public String Gowu(Model model,int uid ) {
 			}
 		return r;
 	}
+	/**
+	 * 订单详情添加
+	 * @param ordersDetail
+	 * @return
+	 */
 	@RequestMapping("/insertOrdersDetail")
 	@ResponseBody
 	public Result insertOrdersDetail(OrdersDetail ordersDetail) {
@@ -102,6 +143,11 @@ public String Gowu(Model model,int uid ) {
 			}
 		return r;
 	}
+	/**
+	 * 购物车修改
+	 * @param shoppingcart
+	 * @return
+	 */
 	@RequestMapping("/updatesho")
 	@ResponseBody
 	public Result updatesho(Shoppingcart shoppingcart) {

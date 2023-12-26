@@ -15,12 +15,16 @@ import com.xm.utils.Result;
 @RequestMapping("/OrdersDetailController")
 public class OrdersDetailController {
 	@Autowired
-	OrdersDetailService ordersDetailService;
-	
+	OrdersDetailService ordersDetailService;//调用订单详情的service
+	/**
+	 * 多条件查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/findOrdersDetail")
 	@ResponseBody
 	public Result findOrdersDetail(OrdersDetail ordersDetail) {
-		Result r;
+	Result r;
 	List<OrdersDetail> od=ordersDetailService.findOrdersDetail(ordersDetail);
 	ordersDetail.setPage(null);
 	ordersDetail.setLimit(null);
@@ -34,7 +38,11 @@ public class OrdersDetailController {
 	}
 	return r;
 	}
-	
+	/**
+	 * 多条件查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/getxiangqing")
 	@ResponseBody
 	public Result getxiangqing(OrdersDetail ordersDetail) {
@@ -52,7 +60,11 @@ public class OrdersDetailController {
 	}
 	return r;
 	}
-	
+	/**
+	 * 根据orderid单查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/danchaOrdersDetail")
 	@ResponseBody
 	public Result danchaOrdersDetail(int id) {

@@ -37,11 +37,20 @@ public class OrderContrller {
 	@Autowired
 	SpecificationService SpecificationService;//规格service
 	@Autowired
-	AddressService AddressService;
+	AddressService AddressService;//地址service
 	@Autowired
-	OrdersService ordersService;
+	OrdersService ordersService;//订单service
 	@Autowired
-	OrdersDetailService ordersDetailService;
+	OrdersDetailService ordersDetailService;//订单详细service
+	/**
+	 *  存地址/商品/商品类型数据进入订单添加页面
+	 * @param model
+	 * @param uid
+	 * @param session
+	 * @param ids
+	 * @param sum
+	 * @return
+	 */
 	@RequestMapping("/getorder")
 	public String getorder(Model model,int uid,HttpSession session,String ids,double sum) {
 		List<Address> ad=AddressService.getuserid(uid);
@@ -57,6 +66,11 @@ public class OrderContrller {
 		System.out.println(ids);
 		return "order";
 	}
+	/**
+	 * 订单状态修改1已支付
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/updateOrders")
 	@ResponseBody
 	public Result updateOrders(Orders orders) {
@@ -69,6 +83,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 订单详细添加
+	 * @param ordersDetail
+	 * @return
+	 */
 	@RequestMapping("/insertOrdersDetail")
 	@ResponseBody
 	public Result insertOrdersDetail(OrdersDetail ordersDetail) {
@@ -81,6 +100,11 @@ public class OrderContrller {
 			}
 		return r;
 	}
+	/**
+	 * 订单查询按用户uid
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/getshoppord2")
 	@ResponseBody
 	public Result getshoppord2(Orders orders) {
@@ -93,6 +117,11 @@ public class OrderContrller {
 			}
 		return r;
 	}
+	/**
+	 * 订单查询订单id
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/getshoppord")
 	@ResponseBody
 	public Result getshoppord(Orders orders) {
@@ -105,6 +134,11 @@ public class OrderContrller {
 			}
 		return r;
 	}
+	/**
+	 * 订单添加
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/insertOrders")
 	@ResponseBody
 	public Result insertOrders(Orders orders) {
@@ -117,6 +151,11 @@ public class OrderContrller {
 			}
 		return r;
 	}
+	/**
+	 * 商品多个查询
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/getcate")
 	@ResponseBody
 	public Result getcate(String ids) {
@@ -129,6 +168,12 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 查用户软删按默认降序
+	 * @param add
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/getadd")
 	@ResponseBody
 	public Result getadd(Address add,int uid) {
@@ -141,6 +186,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 地址添加
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/insertpro")
 	@ResponseBody
 	public Result insertpro(Address add) {
@@ -153,6 +203,11 @@ public class OrderContrller {
 			}
 		return r;
 	}
+	/**
+	 * 地址修改
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/updateAddress")
 	@ResponseBody
 	public Result updateAddress(Address add) {
@@ -165,6 +220,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 地址查
+	 * @param adid
+	 * @return
+	 */
 	@RequestMapping("/deleteAddress")
 	@ResponseBody
 	public Result deleteAddress(int adid) {
@@ -177,6 +237,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 地址单查按地址id
+	 * @param adid
+	 * @return
+	 */
 	@RequestMapping("/danAddress")
 	@ResponseBody
 	public Result danAddress(int adid) {
@@ -189,6 +254,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 查用户地址已默认的
+	 * @param uid
+	 * @return
+	 */
 	@RequestMapping("/getMo")
 	@ResponseBody
 	public Result getMo(int uid) {
@@ -201,6 +271,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 修改已默认
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/Morenyi")
 	@ResponseBody
 	public Result Morenyi(Address add) {
@@ -213,6 +288,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 修改取消默认
+	 * @param add
+	 * @return
+	 */
 	@RequestMapping("/Moren")
 	@ResponseBody
 	public Result Moren(Address add) {
@@ -225,6 +305,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 购物车多删
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/deleteAllShoppingcart")
 	@ResponseBody
 	public Result deleteAllShoppingcart(String ids) {
@@ -237,6 +322,11 @@ public class OrderContrller {
 			}
 		return r;
 	}
+	/**
+	 * 商品规格按颜色查
+	 * @param speci
+	 * @return
+	 */
 	@RequestMapping("/getsname")
 	@ResponseBody
 	public Result getsname(Specification speci) {
@@ -250,6 +340,11 @@ public class OrderContrller {
 		}
 		return r;
 	}
+	/**
+	 * 按购物车id修改规格表
+	 * @param speci
+	 * @return
+	 */
 	@RequestMapping("/upsstock")
 	@ResponseBody
 	public Result upsstock(Specification speci) {

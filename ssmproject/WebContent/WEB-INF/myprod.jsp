@@ -35,9 +35,7 @@
 			<div class="wrapper clearfix">
 				<a href="../IndexController/getindex" class="fl">首页</a>
 				<span>/</span>
-				<c:forEach items="${user}" var="user" >
 				<a href="../MyginController/getUser?uid=${user.uid}" class="on">个人中心</a>
-				</c:forEach>
 				<span>/</span>
 				<a href="#" class="on">待评价商品</a>
 			</div>
@@ -48,13 +46,10 @@
 		<div class="Bott">
 			<div class="wrapper clearfix">
 					<div class="zuo fl">
-				<c:forEach items="${user}" var="user" >
 						<h3>
 							<a href="#"><img src="../images/${user.uimg} " width="92px" height="92px" style="border-radius: 100px"/></a>
 							<p class="clearfix"><span class="fl">${user.uname}</span><a href="../denglu/login"><span class="fr">[退出登录]</span></a></p>
 						<h3>
-				</c:forEach>
-					<c:forEach items="${user}" var="user" >
 					<div>
 						<h4>我的交易</h4>
 						<ul>
@@ -73,7 +68,6 @@
 							<li><a href="../denglu/uppwd">修改密码</a></li>
 						</ul>
 					</div>
-					</c:forEach>
 				</div>
 				<div class="you fl">
 					<div class="my clearfix">
@@ -121,7 +115,7 @@
 						
 						</script>
 						<div class="clearfix">
-							<c:forEach items="${com}" var="com" >
+							<c:forEach items="${coms}" var="com" >
 							<c:if test="${com.orders.orderstate==5}">
 							<span style="display: none;" id="pid${com.orders.orderid}">${com.product.pid}</span>
 							<dl class="fl">
@@ -182,7 +176,7 @@
 						<input type="hidden" id="orderid">
 						<input type="hidden" id="pid">
 						<input type="hidden" id="pimg">
-						<input type="hidden" id="uid" value="1">
+						<input type="hidden" id="uid" value="${user.uid}">
       					<textarea name="" rows="" cols="" placeholder="请输入评价" id="pingjia"></textarea>
    		 				
 					<div class="bc">
@@ -207,10 +201,11 @@
 				},"json");
 				$.post("../MyprodController/AddComments",{"pid":pid,"uid":uid,"comimgs":pimg,"comcontet":pingjia},function(res){
 					if(res.code=="0"){
-        				setTimeout('window.location.reload()',1);
+						alert(res.msg);
+        				setTimeout('window.location.reload()',1000);
         			}else{
         				alert(res.msg);
-        				setTimeout('window.location.reload()',1);
+        				setTimeout('window.location.reload()',1000);
         			} 
 				},"json");
 			}
@@ -243,28 +238,24 @@
 			
 		<!--返回顶部-->
 		<div class="gotop">
-		<c:forEach items="${user}" var="user" >
 			<a href="../CartController/Gowu?uid=${user.uid}">
 			<dl>
 				<dt><img src="../qian/img/gt1.png"/></dt>
 				<dd>去购<br />物车</dd>
 			</dl>
 			</a>
-			</c:forEach>
 			<a href="#" class="dh">
 			<dl>
 				<dt><img src="../qian/img/gt2.png"/></dt>
 				<dd>联系<br />客服</dd>
 			</dl>
 			</a>
-			<c:forEach items="${user}" var="user" >
 				<a href="../MyginController/getUser?uid=${user.uid}" class="on">
 			<dl>
 				<dt><img src="../qian/img/gt3.png"/></dt>
 				<dd>个人<br />中心</dd>
 			</dl>
 			</a>
-			</c:forEach>
 			<a href="#" class="toptop" style="display: none">
 			<dl>
 				<dt><img src="../qian/img/gt4.png"/></dt>

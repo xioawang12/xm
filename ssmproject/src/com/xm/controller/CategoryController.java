@@ -17,10 +17,14 @@ import com.xm.utils.Result;
 @RequestMapping("/category")
 public class CategoryController {
 	@Autowired
-	public CategoryService categoryservice;
+	public CategoryService categoryservice;//调用类型的service
 	@Autowired
-	ProductService productservice;
-	
+	ProductService productservice;//调用商品的service
+	/**
+	 * 按照类型名字全查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/findall")
 	@ResponseBody
 	public Result findbypage(Category cat) {
@@ -36,20 +40,36 @@ public class CategoryController {
 		}
 		return r;
 	}
+	/**
+	 * 按照父类型等于零的全查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/onefindall")
 	@ResponseBody
 	public List<Category> onefindbypage() {
 		return categoryservice.oneall();
 	}
+	/**
+	 * 全查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/gettype")
 	@ResponseBody
 	public List<Category> gettype() {
 		return categoryservice.gettype();
 	}
+	/**
+	 * 添加
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/inserttype")
 	@ResponseBody
 	public Result inserttype(Category cat) {
 		Result r;
+		//根据类型名字查是否有值
 		List<Category>typename=categoryservice.getname(cat);
 		if(typename.size()>0) {
 			r=new Result(1, "不能添加重名的");
@@ -63,6 +83,11 @@ public class CategoryController {
 		}
 		return r;
 	}
+	/**
+	 * 按id修改
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/updatetype")
 	@ResponseBody
 	public Result updatetype(Category cat) {
@@ -75,10 +100,16 @@ public class CategoryController {
 		}
 		return r;
 	}
+	/**
+	 * 按id删除
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/deletetype")
 	@ResponseBody
 	public Result deletetype(int cateid) {
 		Result r;
+		//根据类型id查是否有值
 		List<Product>pro=productservice.getcateid(cateid);
 		if(pro.size()>0) {
 			r=new Result(1, "该类型已被引用");

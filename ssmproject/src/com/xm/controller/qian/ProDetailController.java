@@ -30,19 +30,27 @@ import com.xm.utils.Result;
 @RequestMapping("/ProDetailController")
 public class ProDetailController {
 	@Autowired
-	ShoppingcartService shoppingcartservice;
+	ShoppingcartService shoppingcartservice;//购物车service
 	@Autowired
 	CategoryService CategoryService;//类别service
 	@Autowired
-	ProductService productService;
+	ProductService productService;//商品service
 	@Autowired
-	ProimgService proimgService;
+	ProimgService proimgService;//商品图片service
 	@Autowired
-	RecommentService RecommentService;//类别service
+	RecommentService RecommentService;//推荐service
 	@Autowired
-	CommentService commentService;
+	CommentService commentService;//商品评价service
 	@Autowired
 	SpecificationService specificationservice;
+	/**
+	 * 存商品/商品类型/购物车/商品图片/推荐数据进入订单商品详细页面
+	 * @param model
+	 * @param session
+	 * @param pid
+	 * @param cateid
+	 * @return
+	 */
 	@RequestMapping("/getDetail")
 	public String getDetail(Model model, HttpSession session,int pid,int cateid) {
 		List<Product> pross=productService.getLeiShang(cateid);
@@ -64,6 +72,11 @@ public class ProDetailController {
 		model.addAttribute("recomment", recomment);
 		return "proDetail";
 	}
+	/**
+	 * 按商品规格查
+	 * @param speci
+	 * @return
+	 */
 	@RequestMapping("/getproses")
 	@ResponseBody
 	public Result getproses(Specification speci) {
@@ -77,6 +90,11 @@ public class ProDetailController {
 		}
 		return r;
 	}
+	/**
+	 * 按购物车多个表id查询
+	 * @param shopp
+	 * @return
+	 */
 	@RequestMapping("/getpsid")
 	@ResponseBody
 	public Result getpsid(Shoppingcart shopp) {
@@ -89,6 +107,11 @@ public class ProDetailController {
 		}
 		return r;
 	}
+	/**
+	 * 购物车添加
+	 * @param shopp
+	 * @return
+	 */
 	@RequestMapping("/innershopp")
 	@ResponseBody
 	public Result innershopp(Shoppingcart shopp) {
@@ -101,6 +124,11 @@ public class ProDetailController {
 		}
 		return r;
 	}
+	/**
+	 * 购物车修改
+	 * @param shopp
+	 * @return
+	 */
 	@RequestMapping("/updateshopp")
 	@ResponseBody
 	public Result updateshopp(Shoppingcart shopp) {
@@ -113,6 +141,11 @@ public class ProDetailController {
 		}
 		return r;
 	}
+	/**
+	 * 购物车单表按商品id购物车id查
+	 * @param shopp
+	 * @return
+	 */
 	@RequestMapping("/getshisid")
 	@ResponseBody
 	public Result getshisid(Shoppingcart shopp) {

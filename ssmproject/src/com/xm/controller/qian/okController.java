@@ -14,12 +14,24 @@ import com.xm.utils.Result;
 @Controller
 @RequestMapping("/oks")
 public class okController {
+	/**
+	 * 订单
+	 */
 	@Autowired
 	OrdersService ordersService;
+	/**
+	 * 进入结算页面
+	 * @return
+	 */
 	@RequestMapping("/ok")
 	public String addusers(){
 		return "ok";
 		}
+	/**
+	 * 订单状态修改1已支付
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/updateOrders")
 	@ResponseBody
 	public Result updateOrders(Orders orders) {
@@ -32,11 +44,16 @@ public class okController {
 		}
 		return r;
 	}
+	/**
+	 * 订单查询
+	 * @param orders
+	 * @return
+	 */
 	@RequestMapping("/getshoppord")
 	@ResponseBody
 	public Result getshoppord(Orders orders) {
 		Result r;
-			List<Orders> i=ordersService.getshoppord(orders);
+			List<Orders> i=ordersService.getshoppords(orders);
 			if(i.size()>=0) {
 				r=new Result(0, "",i.size(),i);
 			}else {

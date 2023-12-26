@@ -18,8 +18,12 @@ import com.xm.utils.Result;
 @RequestMapping("/proimg")
 public class ProimgController {
 	@Autowired
-	ProimgService proimgservice;
-	
+	ProimgService proimgservice;//调用商品图片的service
+	/**
+	 * 多条件查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/findall")
 	@ResponseBody
 	public Result findbypage(Proimg img) {
@@ -35,6 +39,11 @@ public class ProimgController {
 		}
 		return r;
 	}
+	/**
+	 * 添加
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/insertimg")
 	@ResponseBody
 	public Result insertimg(Proimg img) {
@@ -47,6 +56,11 @@ public class ProimgController {
 		}
 		return r;
 	}
+	/**
+	 * 根据商品id全查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/getpid")
 	@ResponseBody
 	public Result getpid(int pid) {
@@ -59,6 +73,11 @@ public class ProimgController {
 		}
 		return r;
 	}
+	/**
+	 * 根据商品id修改
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/updateimg")
 	@ResponseBody
 	public Result updateimg(Proimg img) {
@@ -71,6 +90,11 @@ public class ProimgController {
 		}
 		return r;
 	}
+	/**
+	 * 根据商品图片id删除
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/deleteimg")
 	@ResponseBody
 	public Result deleteimg(int imgid) {

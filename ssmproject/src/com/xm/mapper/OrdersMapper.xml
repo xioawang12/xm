@@ -126,4 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateOrderss" parameterType="orders">
 	update orders set orderstate=5 where orderid=#{orderid}
 	</update>
+	<select id="getshoppords" resultType="orders" parameterType="orders">
+	SELECT * FROM orders WHERE uid=#{uid} ORDER BY orderid DESC
+	</select>
 </mapper>

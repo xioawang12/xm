@@ -28,6 +28,10 @@ public interface ProimgMapper {
 	 * @return
 	 */
 	public int updateimg(Proimg img);
-	
+	/**
+	 * 根据商品图片id删除
+	 * @param img
+	 * @return
+	 */
 	public int deleteimg(@Param("imgid")int imgid);
 }

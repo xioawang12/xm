@@ -5,9 +5,44 @@
 <html>
 	<head lang="en">
 		<meta charset="utf-8" />
-		<title>墙式壁挂</title>
+		<title>所有商品</title>
 		<link rel="stylesheet" type="text/css" href="../qian/css/public.css"/>
 		<link rel="stylesheet" type="text/css" href="../qian/css/proList.css"/>
+<style>
+        .pagination-container {
+            text-align: center;
+            margin-top: 20px; /* Adjust as needed */
+        }
+
+        .pagination {
+            display: inline-block;
+            padding: 0;
+            list-style: none;
+        }
+
+        .pagination li {
+            display: inline;
+            margin-right: 5px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .pagination a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .pagination .active {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+		
 	</head>
 	<body>
 		<!------------------------------head------------------------------>
@@ -62,9 +97,10 @@
 			</ul>
 		</div>
 	</div>
+	
 		<!-----------------banner------------------------------->
 		<div class="banner">
-			<a href="#"><img src="../images/lbt1.jpg"/></a>
+			<a href="#"><img src="../images/l1.png"style="width:1800px;height: 800px;"/></a>
 		</div>	
 		<!-----------------address------------------------------->
 		<div class="address">
@@ -73,10 +109,11 @@
 			</div>
 		</div>
 		<!-----------------paintCon------------------------------->
+		
 		<div class="paintCon">
 			<section class="wrapper">
-				<h3><img src="../qian/img/temp/tit01.jpg"></h3>
-				<img src="../qian/img/temp/paint01.jpg" />
+				<h3><img src="../images/b5.jpg"></h3>
+				<img src="../images/草莓 (2).jpg" style="width:1080px;height:560px;"/>
 				<div class="paintList">
 				<c:forEach items="${proquan }" var="proquan">
 					<a href="../ProDetailController/getDetail?pid=${proquan.pid}&cateid=${proquan.cateid}">
@@ -88,8 +125,83 @@
 					</c:forEach>
 				</div>
 			</section>
-			
-			
+			  <!-- 分页控件 -->
+        <div class="pagination-container">
+        <ul id="pagination" class="pagination"></ul>
+    </div>
+        <!-- 引入jQuery和Bootstrap的JavaScript文件 -->
+    <script src="../js/jquery-3.6.2.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+console.log("JavaScript 正在执行！");
+    // Assume each page displays 10 items
+    var itemsPerPage = 6;
+
+    // Get the total number of items from the server-side
+    var totalItems = ${proquan.size()};
+
+    // Convert Java list to JavaScript array
+    var proquanArray = [];
+
+    <c:forEach items="${proquan}" var="item">
+        proquanArray.push({
+            pid: '${item.pid}',
+            cateid: '${item.cateid}',
+            pimg: '${item.pimg}',
+            pname: '${item.pname}'
+        });
+    </c:forEach>
+
+    // Calculate the total number of pages
+    var totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    // Current page
+    var currentPage = 1;
+
+    // Function to show items for the given page
+    function showPage(page) {
+        var startIndex = (page - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+
+        var pageItems = proquanArray.slice(startIndex, endIndex);
+
+        // Clear the existing content
+        $(".paintList").empty();
+
+        // Display items for the current page
+        $.each(pageItems, function (index, item) {
+            var itemHtml = '<a href="../ProDetailController/getDetail?pid=' + item.pid + '&cateid=' + item.cateid + '">' +
+                '<dl>' +
+                '<dt><img src="../images/' + item.pimg + '"></dt>' +
+                '<dd>' + item.pname + '</dd>' +
+                '</dl>' +
+                '</a>';
+            $(".paintList").append(itemHtml);
+        });
+    }
+
+    // Function to generate pagination links
+    function generatePagination() {
+        var paginationHtml = '';
+
+        for (var i = 1; i <= totalPages; i++) {
+            paginationHtml += '<li><a href="#" onclick="changePage(' + i + ')">' + i + '</a></li>';
+        }
+
+        $("#pagination").html(paginationHtml);
+    }
+
+    // Function to change the current page
+    function changePage(page) {
+        currentPage = page;
+        showPage(currentPage);
+    }
+
+    // Initialize the page
+    showPage(currentPage);
+    generatePagination();
+</script>
+    </div>
 		</div>
 		<!--返回顶部-->
 		<div class="gotop">
@@ -120,12 +232,14 @@
 			<p>XXX</p>
 		</div>
 		<div class="msk"></div>
+		      <div class="setPageDiv">
+        </div>
+        
 		<!--footer-->
 		
 		<jsp:include page="tail.jsp"></jsp:include>
 		<!--<script src="js/pro.js" type="text/javascript" charset="utf-8"></script>-->
-		<script src="../qian/js/jquery-1.12.4.min.js" type="text/javascript"
-		charset="utf-8"></script>
+		<script src="../qian/js/jquery-1.12.4.min.js" type="text/javascript"charset="utf-8"></script>
 	<script src="../qian/js/public.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../qian/js/nav.js" type="text/javascript" charset="utf-8"></script>
@@ -161,4 +275,9 @@
 </div>
 		
 	</body>
+	<script type="text/javascript">
+	
+	
+	</script>
 </html>
+

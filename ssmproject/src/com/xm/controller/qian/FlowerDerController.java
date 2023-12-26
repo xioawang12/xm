@@ -17,14 +17,28 @@ import com.xm.service.ProimgService;
 @Controller
 @RequestMapping("/flowerder")
 public class FlowerDerController {
+	/**
+	 * 商品类型
+	 */
 	@Autowired
 	CategoryService CategoryService;//类别service
-	@Autowired
-	ProductService productService;
+	
+	/**
+	 * 商品图片
+	 */
 	@Autowired
 	ProimgService proimgService;
+	/**
+	 * 商品
+	 */
 	@Autowired
 	ProductService productservice;
+	/**
+	 * 存商品数据进入商品类型页面
+	 * @param model
+	 * @param cateid
+	 * @return
+	 */
 	@RequestMapping("/getpro")
 	public String getpro(Model model,int cateid) {
 		List<Product> pro=productservice.getLeiShang(cateid);

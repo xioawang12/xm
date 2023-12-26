@@ -20,8 +20,19 @@ import com.xm.utils.Result;
 @Controller
 @RequestMapping("/denglu")
 public class Logincontroller {
+	/**
+	 * 用户
+	 */
 	@Autowired
 	UserService userservice;
+	/**
+	 * 密码验证
+	 * @param user
+	 * @param session
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/logins")
 	public String login(User user,HttpSession session,HttpServletResponse response) throws IOException{
 		user=userservice.login(user);
@@ -39,15 +50,33 @@ public class Logincontroller {
 		}
 		return null;
 	}
+	/**
+	 * 进入登录页面
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/login")
 	public String tologin(HttpSession session){
 		session.invalidate();
 		return "login";
 		}
+	/**
+	 * 进入密码页面
+	 * @return
+	 */
 	@RequestMapping("/addusers")
 	public String addusers(){
 		return "reg";
 		}
+	/**
+	 * 注册验证
+	 * @param user
+	 * @param session
+	 * @param model
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/adduser")
 	public String adduser(User user,HttpSession session,Model model,HttpServletResponse response) throws IOException{
 		response.setContentType("text/html;charset=utf-8");
@@ -70,10 +99,23 @@ public class Logincontroller {
 		}
 		return null;
 	}
+	/**
+	 * 进入修改密码页面
+	 * @return
+	 */
 	@RequestMapping("/uppwd")
 	public String uppwd(){
 		return "remima";
 		}
+	/**
+	 * 修改密码验证
+	 * @param user
+	 * @param session
+	 * @param model
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/upupwd")
 	public String upupwd(User user,HttpSession session,Model model,HttpServletResponse response) throws IOException{
 		response.setContentType("text/html;charset=utf-8");
@@ -94,6 +136,11 @@ public class Logincontroller {
 		}
 		return null;
 	}
+	/**
+	 * 用户名验证
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping("/getuname")
 	@ResponseBody
 	public Result getuname(User user) {

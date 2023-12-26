@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from shoppingcart where shopid in(${ids})
 	</delete>
 	<select id="getpsid" parameterType="shoppingcart" resultType="shoppingcart">
-	select * from shoppingcart where sid=#{sid} and pid=#{pid}
+	select * from shoppingcart where pid=#{pid} and sid=#{sid} and uid=#{uid}
 	</select>
 	<update id="updatesho" parameterType="shoppingcart">
 	update shoppingcart set shopprice=#{shopprice},shopnumber=#{shopnumber} where shopid=#{shopid}

@@ -24,11 +24,20 @@ public class OrderXqController {
 	@Autowired
 	CategoryService CategoryService;//类别service
 	@Autowired
-	AddressService AddressService;
+	AddressService AddressService;//地址service
 	@Autowired
-	OrdersService OrdersService;
+	OrdersService OrdersService;//订单service
 	@Autowired
-	OrdersDetailService OrdersDetailService;
+	OrdersDetailService OrdersDetailService;//订单详细service
+	/**
+	 *  存地址/订单/商品类型/订单详细数据进入订单详细页面
+	 * @param model
+	 * @param uid
+	 * @param orderid
+	 * @param orderstate
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/Orderxq")
 	public String Orderxq(Model model,int uid,Integer orderid,String orderstate,HttpSession session) {
 		List<Address> ad=AddressService.getuserid(uid);

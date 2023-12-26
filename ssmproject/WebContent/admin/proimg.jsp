@@ -9,11 +9,6 @@
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../layui/layui.js"></script>
 </head>
-<style>
-.layui-table-cell {
-	height: auto;
-}
-</style>
 <body>
 <script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">

@@ -20,8 +20,12 @@ import com.xm.utils.Result;
 public class OrdersController {
 	
 	@Autowired
-	OrdersService ordersService;
-	//多条件查
+	OrdersService ordersService;//调用订单的service
+	/**
+	 * 多条件查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/findOrder")
 	@ResponseBody
 	public Result findOrder(OrdersVo ordersVo) {
@@ -38,7 +42,11 @@ public class OrdersController {
 	}
 	return r;
 	}
-	//按id全查
+	/**
+	 * 按id全查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/getxiangqing")
 	@ResponseBody
 	public Result getxiangqing(Orders orders) {
@@ -52,8 +60,11 @@ public class OrdersController {
 	}
 	return r;
 	}
-	
-	//按id删除
+	/**
+	 *按id删除
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/shanchu")
 	@ResponseBody
 	public Result shanchu(Orders orders) {
@@ -66,7 +77,11 @@ public class OrdersController {
 		}
 		return r;
 	}
-	//按id未删除
+	/**
+	 *按id未删除
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/waishanchu")
 	@ResponseBody
 	public Result waishanchu(Orders orders) {
@@ -79,7 +94,11 @@ public class OrdersController {
 		}
 		return r;
 	}
-	//按id发货
+	/**
+	 *按id发货
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/fahuo")
 	@ResponseBody
 	public Result fahuo(Orders orders) {
@@ -94,7 +113,33 @@ public class OrdersController {
 		}
 		return r;
 	}
-	//查询生成的物流单号
+	
+	/**
+	 *查询生成的物流单号
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping("/shengcheng")
+	@ResponseBody
+	public Result shengcheng(int orderid,HttpSession session) {
+		//生成一个随机的物流单号
+		String od=OrderUtils.getOrderCode(orderid);
+		session.setAttribute("od", od);
+		System.out.println(od);
+		Result r;
+		int i=ordersService.shengcheng(orderid);
+		if(i>=0) {
+			r=new Result(0, od);
+		}else {
+			r=new Result(1, "生成失败");
+		}
+		return r;
+	}
+	/**
+	 *测试是否可以生成物流单号
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/getwuliu")
 	@ResponseBody
 	public Result getwuliu(Orders orders ,HttpSession session) {
@@ -111,19 +156,4 @@ public class OrdersController {
 		}
 		return r;
 	}	
-	@RequestMapping("/shengcheng")
-	@ResponseBody
-	public Result shengcheng(int orderid,HttpSession session) {
-		String od=OrderUtils.getOrderCode(orderid);
-		session.setAttribute("od", od);
-		System.out.println(od);
-		Result r;
-		int i=ordersService.shengcheng(orderid);
-		if(i>=0) {
-			r=new Result(0, od);
-		}else {
-			r=new Result(1, "生成失败");
-		}
-		return r;
-	}
 }

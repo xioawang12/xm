@@ -18,12 +18,12 @@ import com.xm.utils.Result;
 @RequestMapping("/SpecificationController")
 public class SpecificationController {
 	@Autowired
-	SpecificationService speservice;
+	SpecificationService speservice;//调用规格的service
 	@Autowired
-	ProductService productService;
+	ProductService productService;//调用商品的service
 	/**
 	 * 多条件查
-	 * @param spvo
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("/findByPage")
@@ -43,7 +43,7 @@ public class SpecificationController {
 	}
 	/**
 	 * 添加
-	 * @param speci
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("/insertSpecification")
@@ -65,8 +65,8 @@ public class SpecificationController {
 	}
 	
 	/**
-	 * 修改
-	 * @param speci
+	 * 根据规格id修改
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("/updateSpecification")
@@ -82,8 +82,8 @@ public class SpecificationController {
 		return r;
 	}
 	/**
-	 * 删除
-	 * @parsam pid
+	 * 根据规格id删除
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("/deleteById")
@@ -100,8 +100,8 @@ public class SpecificationController {
 		return r;
 	}
 	/**
-	 * 多个删除
-	 * @param ids
+	 * 根据ids多个删除
+	 * @param
 	 * @return
 	 */
 	@RequestMapping("/deleteByIds")

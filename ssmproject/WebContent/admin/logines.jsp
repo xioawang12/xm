@@ -20,10 +20,10 @@
         }
         .container {
             height: 100%;
-            background-image: linear-gradient(to top, #FAF9DE, #FDE6E0);
+            background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
         }
         .login-wrapper {
-            background-color: #FFF2E2;
+            background-color: #fff;
             width: 358px;
             height: 588px;
             border-radius: 15px;
@@ -45,7 +45,7 @@
             margin-bottom: 20px;
             border: 0;
             padding: 10px;
-            border-bottom: 1px solid rgb(250, 249, 222);
+            border-bottom: 1px solid rgb(128, 125, 125);
             font-size: 15px;
             outline: none;
         }
@@ -58,8 +58,8 @@
             padding: 10px;
             width: 80%;
             margin-top: 40px;
-            background-image: linear-gradient(to right, #FAF9DE, #FDE6E0);
-            color: #000000;
+            background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
+            color: #fff;
         }
         .msg {
             text-align: center;
@@ -77,7 +77,7 @@
 <body>
     <div class="container">
         <div class="login-wrapper">
-            <div class="header">金豆登录</div>
+            <div class="header">靠谱水果店登录</div>
             <div class="form-wrapper">
                 <form class="layui-form" method="post" id="container">
   <div class="layui-form-item">
@@ -132,4 +132,3 @@ layui.use(['layer','table','form','laydate','upload'], function(){
 }); 
 </script>
 </html>
-

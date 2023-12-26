@@ -274,12 +274,13 @@ margin-left:75px;
 							<td width="25" height="50" style="text-align:center">${ad.addstreet }</td>
 							<td width="25" height="50" style="text-align:center">${ad.detailaddress }</td>
 							<td width="70" height="50" style="text-align:center" ><p class="fr">&emsp;&emsp;
-							<form action="">
+							<form action="" id="mns">
 									<a href="#" ><input type="button" value="删除" onclick="shanchu(this)" alt="${ad.adid}"  style="background-color:white;"></a>
 									&ensp;
 									<a href="#" ><input type="button" id="btn" onclick="xiu(this)"  alt="${ad.adid}"  value="编辑"   style="background-color:white;"></a>
 									&ensp;
 									<a href="#" ><input type="button" onclick="moren(this)" id="mr"  alt="${ad.adid}"  value="默认"  style="background-color:white;"></a>
+									
 									</form>
 								</td>
 							</tr>
@@ -358,6 +359,7 @@ margin-left:75px;
 	            		   	  },"json");
 	            		}
 	            	},"json");
+          		
           		}
 			</script>
 	              	<script type="text/javascript">
@@ -445,7 +447,7 @@ margin-left:75px;
 	              	<script type="text/javascript">
 	              	function xiugai(obj) {
 	              		document.getElementById("fm").style.display='none';
-	              		$("#tas").attr("style","height:600px;");
+	              		$("#tas").attr("style","height:auto;");
 						var addname=document.getElementById("name").value;
 						console.log(addname);
 						var adid=document.getElementById("id").value;
@@ -479,23 +481,28 @@ margin-left:75px;
 					}
 	              	function quxiao() {
 	              		document.getElementById("fm").style.display='none';
-	              		$("#tas").attr("style","height:600px;");
+	              		$("#tas").attr("style","height:auto;");
 					}
 	              	</script>
 	              	<script type="text/javascript">
 	              	function yinchang(){
+	              		 document.getElementById("fm").style.display='none';
 	              		var uid=document.getElementById("uid").value;
 	              		var dats=$("input[name='adid']:checked");
 	              		 var input = document.getElementById('adid');
 	                     input.checked=true;
-	              		document.getElementById("fm").style.display='none';
+	                     
 	              		$.post("../OrderContrller/getMo",{"uid":uid},function(res){
 	              			if(res.code==0){
-	              				$("#mr").attr("style","display:none;");
 	              				$("#tr").attr("style","background-color: #FAF9DE;");
+	              				$("#mr").attr("style","background-color:red;");
+	              				document.getElementById("mr").value="           ";
+	              				$("#mr").attr("disabled",ture);
+	              				
 	              				checked=true;
-	              			}else{
-	              				$("#mr").attr("style","display:block;");
+	              				/* var s="";
+	              				s+="<input type='button'value='默认'  style='background-color:yellow; disable'/>";
+	              				$("#mns").html(s); */
 	              			}
 	              		},"json");
 	              	}
@@ -616,6 +623,8 @@ margin-left:75px;
 						                 					$.post("../OrderContrller/insertOrdersDetail",{"pid":pid2[i],"orderid":orderid2[i],"sid":sid2[i],"number":shuliang2[i],"price":jiage2[i]},function(res){
 								                 			
 								                			},"json");
+						                 					 $.post("../OrderContrller/deleteAllShoppingcart",{"ids":ids},function(res){
+						              					  },"json");
 						 							}; 
 						 							
 						                 		}else{
@@ -636,8 +645,7 @@ margin-left:75px;
 	                 			alert(res.msg);
 	                 			}
 	                 	},"json");
-					/*  $.post("../OrderContrller/deleteAllShoppingcart",{"ids":ids},function(res){
-					  },"json"); */
+					
 						  
 			}
 		</script>
@@ -706,9 +714,7 @@ margin-left:75px;
 		<div class="adddz">
 			<form action="" method="get">
 				<input type="text" name="addname" id="addname" placeholder="姓名" class="on" />
-				<c:forEach items="${ad}" var="ad">
-				<input type="hidden" name="uid"  id="uid" value="${ad.uid }" />
-				</c:forEach>
+				<input type="hidden" name="uid"  id="uid" value="${user.uid}" />
 				<input type="text" name="addphone" id="addphone" placeholder="手机号" />
 				<div class="city">
 					<select name="adprovince" id="adprovince">

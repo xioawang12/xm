@@ -21,14 +21,32 @@ import com.xm.service.SpecificationService;
 @Controller
 @RequestMapping("/IndexController")
 public class IndexController {
+	/**
+	 * 商品类型
+	 */
 	@Autowired
 	CategoryService CategoryService;//类别service
+	/**
+	 * 推荐位置
+	 */
 	@Autowired
 	RecommentService RecommentService;//类别service
+	/**
+	 * 商品
+	 */
 	@Autowired 
 	ProductService ProductService;
+	/**
+	 * 商品规格
+	 */
 	@Autowired
 	SpecificationService SpecificationService;
+	/**
+	 * 存商品/商品类型/商品规格/推荐位置数据进入首页页面
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/getindex")
 	public String getindex(Model model,HttpSession session) {
 		List<Recomment> recomm1=RecommentService.QianReco(1);

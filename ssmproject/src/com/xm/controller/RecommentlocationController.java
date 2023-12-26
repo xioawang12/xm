@@ -19,12 +19,12 @@ public class RecommentlocationController {
 	
 
 		@Autowired
-		RecommentlocationService recommentlocationService;
+		RecommentlocationService recommentlocationService;//调用推荐位置的service
 		@Autowired
-		RecommentService RecommentService;
+		RecommentService RecommentService;//调用推荐的service
 		/**
 		 * 多条件查
-		 * @param spvo
+		 * @param 
 		 * @return
 		 */
 		@RequestMapping("/findByPage")
@@ -44,7 +44,7 @@ public class RecommentlocationController {
 		}
 		/**
 		 * 添加
-		 * @param product
+		 * @param 
 		 * @return
 		 */
 		@RequestMapping("/insertRecommentlocation")
@@ -66,8 +66,8 @@ public class RecommentlocationController {
 		}
 		
 		/**
-		 * 修改
-		 * @param product
+		 * 根据推荐位置id修改
+		 * @param 
 		 * @return
 		 */
 		@RequestMapping("/updateRecommentlocation")
@@ -83,13 +83,14 @@ public class RecommentlocationController {
 			return r;
 		}
 		/**
-		 * 删除
-		 * @parsam locid
+		 *  根据推荐位置id删除
+		 * @param 
 		 * @return
 		 */
 		@RequestMapping("/deleteById")
 		@ResponseBody
 		public Result deleteById(int locid) {
+			//根据推荐位置id查是否有值
 			List<Recomment>reco=RecommentService.findall(locid);
 			System.out.println(locid);
 			Result r;
@@ -105,6 +106,11 @@ public class RecommentlocationController {
 			}	
 			return r;
 		}
+		/**
+		 *  全查
+		 * @param 
+		 * @return
+		 */
 		@RequestMapping("/getrec")
 		@ResponseBody
 		public List<Recommentlocation> getrec() {

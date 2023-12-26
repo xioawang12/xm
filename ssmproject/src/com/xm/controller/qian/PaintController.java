@@ -20,7 +20,12 @@ public class PaintController {
 	@Autowired
 	CategoryService CategoryService;//类别service
 	@Autowired
-	ProductService productservice;
+	ProductService productservice;//商品service
+	/**
+	 *  存商品/商品类型数据进入订单商品全查页面
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/getpros")
 	public String getpros(Model model) {
 		List<Product> proquan=productservice.getpro();

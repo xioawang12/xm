@@ -15,7 +15,7 @@
 			<div class="wrapper clearfix">
 				<div class="clearfix" id="top">
 				<h1 class="fl">
-					<a href="../IndexController/getindex"><img src="../images/logo.png" width="200px" height="70px"/></a>
+					<a href="index.jsp"><img src="../images/logo.png" width="200px" height="70px"/></a>
 				</h1>
 				<div class="fr clearfix" id="top1">
 					<form action="#" method="get" class="fl">
@@ -64,9 +64,7 @@
 			<div class="wrapper clearfix">
 				<a href="../IndexController/getindex" class="fl">首页</a>
 				<span>/</span>
-					<c:forEach items="${user}" var="user" >
 				<a href="../MyginController/getUser?uid=${user.uid}" class="on">个人中心</a>
-				</c:forEach>
 			</div>
 		</div>
 		
@@ -74,13 +72,10 @@
 		<div class="Bott">
 			<div class="wrapper clearfix">
 				<div class="zuo fl">
-				<c:forEach items="${user}" var="user" >
 						<h3>
 							<a href="#"><img src="../images/${user.uimg} " width="92px" height="92px" style="border-radius: 100px"/></a>
 							<p class="clearfix"><span class="fl">${user.uname}</span><a href="../denglu/login"><span class="fr">[退出登录]</span></a></p>
 						<h3>
-				</c:forEach>
-					<c:forEach items="${user}" var="user" >
 					<div>
 						<h4>我的交易</h4>
 						<ul>
@@ -90,7 +85,6 @@
 						</ul>
 						<h4>个人中心</h4>
 						<ul>
-							<li  class="on"><a href="../MyginController/getUser?uid=${user.uid}">我的中心</a></li>
 							<li><a href="../AddressController/addres?uid=${user.uid}">地址管理</a></li>
 						</ul>
 						<h4>账户管理</h4>
@@ -99,21 +93,17 @@
 							<li><a href="../denglu/uppwd">修改密码</a></li>
 						</ul>
 					</div>
-					</c:forEach>
 				</div>
 				<div class="you fl">
 					<div class="tx clearfix">
 						<div class="fl clearfix">
-						<c:forEach items="${user}" var="user" >
 							<a href="#" class="fl"><img src="../images/${user.uimg} " width="92px" height="92px" style="border-radius: 50px"/></a>
 						
 							<p class="fl"><span>${user.uname}</span><a href="../MygrxxController/getUser?uid=${user.uid}">修改个人信息></a></p>
-						</c:forEach>
+						
 							
 						</div>
-						<c:forEach items="${user}" var="user" >
 							<div class="fr">绑定邮箱：${user.uemail}</div>
-						</c:forEach>
 						
 					</div>
 					<div class="bott">
@@ -150,28 +140,24 @@
 		
 		<!--返回顶部-->
 		<div class="gotop">
-		<c:forEach items="${user}" var="user" >
 			<a href="../CartController/Gowu?uid=${user.uid}">
 			<dl>
 				<dt><img src="../qian/img/gt1.png"/></dt>
 				<dd>去购<br />物车</dd>
 			</dl>
 			</a>
-			</c:forEach>
 			<a href="#" class="dh">
 			<dl>
 				<dt><img src="../qian/img/gt2.png"/></dt>
 				<dd>联系<br />客服</dd>
 			</dl>
 			</a>
-			<c:forEach items="${user}" var="user" >
 				<a href="../MyginController/getUser?uid=${user.uid}" class="on">
 			<dl>
 				<dt><img src="../qian/img/gt3.png"/></dt>
 				<dd>个人<br />中心</dd>
 			</dl>
 			</a>
-			</c:forEach>
 			<a href="#" class="toptop" style="display: none">
 			<dl>
 				<dt><img src="../qian/img/gt4.png"/></dt>
@@ -210,3 +196,5 @@
 		
 	</body>
 </html>
+
+

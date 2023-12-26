@@ -480,7 +480,12 @@ background-color: #C71585;
 							 console.log(guige)
 							 console.log(shuliang)	
 							 console.log(jiage)
-							 	location.href="../OrderContrller/getorder?ids="+ids+"&sum="+sum+"&uid="+${user.uid}
+							 if(sum!=""&&ids!=""&&sum!=null&&ids!=null){
+								 location.href="../OrderContrller/getorder?ids="+ids+"&sum="+sum+"&uid="+${user.uid}
+							 }else{
+								 alert("请先选择商品！")
+							 }
+							 	
 						/*if(sum!=""&&ids!=""&&sum!=null&&ids!=null){
 								$.post("../CartController/insertOrders",{"uid":uid,"totalprice":sum},function(res){
 			                 		if(res.code=="0"){
@@ -683,6 +688,7 @@ background-color: #C71585;
 		<script src="../qian/js/cart.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>
+
 
 
 

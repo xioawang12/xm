@@ -21,11 +21,16 @@ import com.xm.utils.Result;
 @RequestMapping("/product")
 public class ProductConeroller {
 	@Autowired
-	ProductService productservice;
+	ProductService productservice;//调用商品的service
 	@Autowired
-	ProimgService proimgservice;
+	ProimgService proimgservice;//调用商品图片的service
 	@Autowired
-	SpecificationService specificationservice;
+	SpecificationService specificationservice;//调用规格的service
+	/**
+	 * 多条件查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/findall")
 	@ResponseBody
 	public Result findbypage(ProductVo provo) {
@@ -41,10 +46,16 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 添加
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/insertpro")
 	@ResponseBody
 	public Result insertpro(Product pro) {
 		Result r;
+		//根据商品名字查是否有值
 		List<Product>getpro=productservice.getname(pro);
 		if(getpro.size()>0) {
 			r=new Result(1, "不能添加同名的商品");
@@ -58,6 +69,11 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 按id修改
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/updatepro")
 	@ResponseBody
 	public Result updatepro(Product pro) {
@@ -70,11 +86,18 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 按id删除
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/deletepro")
 	@ResponseBody
 	public Result deletepro(int pid) {
 		Result r;
+		//根据商品id查商品图片是否有值
 		List<Proimg>imgid=proimgservice.getpid(pid);
+		//根据商品id查规格是否有值
 		List<Specification>spid=specificationservice.getspec(pid);
 		if(imgid.size()>0||spid.size()>0) {
 			r=new Result(1, "该商品已被引用");
@@ -89,6 +112,11 @@ public class ProductConeroller {
 		
 		return r;
 	}
+	/**
+	 * 按ids多删
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/deleteById")
 	@ResponseBody
 	public Result deleteById(String ids) {
@@ -101,11 +129,21 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 全查
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/getpro")
 	@ResponseBody
 	public List<Product> getpro() {
 		return productservice.getpro();
 	}
+	/**
+	 * 根据商品id上架
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/shangjia")
 	@ResponseBody
 	public Result shangjia(Product pro) {
@@ -118,6 +156,11 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 根据商品id下架
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/xiajia")
 	@ResponseBody
 	public Result xiajia(Product pro) {
@@ -130,6 +173,11 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 根据ids多条上架
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/pishang")
 	@ResponseBody
 	public Result pishang(String ids) {
@@ -142,6 +190,11 @@ public class ProductConeroller {
 		}
 		return r;
 	}
+	/**
+	 * 根据ids多条下架
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("/pixia")
 	@ResponseBody
 	public Result pixia(String ids) {

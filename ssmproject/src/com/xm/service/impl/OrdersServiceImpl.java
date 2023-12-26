@@ -96,6 +96,11 @@ public class OrdersServiceImpl implements OrdersService {
 		// TODO Auto-generated method stub
 		return ordersMapper.updateOrderss(orders);
 	}
+	@Override
+	public List<Orders> getshoppords(Orders orders) {
+		// TODO Auto-generated method stub
+		return ordersMapper.getshoppords(orders);
+	}
 	
 	
 

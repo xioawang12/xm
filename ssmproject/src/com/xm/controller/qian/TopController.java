@@ -25,7 +25,13 @@ public class TopController {
 	@Autowired
 	RecommentService RecommentService;//推荐service
 	@Autowired
-	ProductService ProductService;
+	ProductService ProductService;//商品service
+	/**
+	 * 存商品类型/添加/商品数据进入头部页面
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/getindex")
 	public String getindex(Model model,HttpSession session) {
 		List<Category> list=CategoryService.gettype();
