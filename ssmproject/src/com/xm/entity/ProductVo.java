@@ -14,6 +14,13 @@ public class ProductVo {
 		this.page = page;
 		this.limit = limit;
 	}
+	
+	public ProductVo(String pname, Integer cateid) {
+		super();
+		this.pname = pname;
+		this.cateid = cateid;
+	}
+
 	public ProductVo() {
 		super();
 		// TODO Auto-generated constructor stub

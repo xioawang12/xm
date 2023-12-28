@@ -107,6 +107,12 @@ public interface ProductMapper {
 	 * @return
 	 */
 	public List<Product> getcate(@Param("ids")String ids);
+	/**
+	 * 前台搜索模糊查
+	 * @param pname
+	 * @return
+	 */
+	public List<Product> getpname(String pname);
 
 
 }

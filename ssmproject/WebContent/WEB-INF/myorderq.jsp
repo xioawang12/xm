@@ -9,6 +9,31 @@
 		<title>最家</title>
 		<link rel="stylesheet" type="text/css" href="../qian/css/public.css"/>
 		<link rel="stylesheet" type="text/css" href="../qian/css/myorder.css" />
+		<style type="text/css">
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #4CAF50;
+    color: white;
+}
+		</style>
 	</head>
 	<body>
 		<!------------------------------head------------------------------>
@@ -77,28 +102,77 @@
 						<a href="#" class="fl">请谨防钓鱼链接或诈骗电话，了解更多&gt;</a>
 					</div>
 					<div class="dlist clearfix">
-						<ul class="fl clearfix" id="wa">
-							<li class="on"><a href="../MyorderqController/Myorderq?uid=${user.uid}">全部有效订单</a></li>
-							<li><a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=0">待支付</a></li>
-							<li><a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=1">已支付</a></li>
-							<li><a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=2">待收货</a></li>
-							<li><a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=4">已收货</a></li>
-						</ul>
-						<form action="#" method="get" class="fr clearfix">
-							<input type="text" name="" id="" value="" placeholder="请输入商品名称、订单号" />
-							<input type="button" name="" id="" value="" />
+	<ul class="fl clearfix" id="wa">
+     <li <c:if test="${empty param.orderstate || param.orderstate eq 'all'}">class="on"</c:if>>
+        <a href="../MyorderqController/Myorderq?uid=${user.uid}" onclick="changeOrderState(this)">
+            全部有效订单
+        </a>
+    </li>
+    <li <c:if test="${param.orderstate == '0'}">class="on"</c:if>>
+        <a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=0" onclick="changeOrderState(this)">
+            待支付
+        </a>
+    </li>
+    <li <c:if test="${param.orderstate == '1'}">class="on"</c:if>>
+        <a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=1" onclick="changeOrderState(this)">
+            已支付
+        </a>
+    </li>
+    <li <c:if test="${param.orderstate == '2'}">class="on"</c:if>>
+        <a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=2" onclick="changeOrderState(this)">
+            待收货
+        </a>
+    </li>
+    <li <c:if test="${param.orderstate == '4'}">class="on"</c:if>>
+        <a href="../MyorderqController/Myorderq?uid=${user.uid}&orderstate=4" onclick="changeOrderState(this)">
+            已收货
+        </a>
+    </li>
+</ul>
+
+<script type="text/javascript">
+    console.log("JavaScript3 正在执行！");
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var links = document.querySelectorAll("#wa a");
+
+        // Set the "on" class to the link with orderstate 'all'
+        var defaultLink = document.querySelector("#wa li[c:if test='${empty param.orderstate || param.orderstate eq 'all'}'] a");
+        defaultLink.classList.add("on");
+
+        links.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                // Remove the "on" class from all links
+                links.forEach(function (el) {
+                    el.classList.remove("on");
+                });
+
+                // Add the "on" class to the clicked link
+                this.classList.add("on");
+            });
+        });
+    });
+</script>
+						<form action="../MyorderqController/Myorderqs" method="get" class="fr clearfix">
+							<input type="text" name="oroddnum" id="" value="" placeholder="请输入订单号" />
+							<input type="submit" name="" id="" value="" />
+							<input type="hidden" name="uid" id="" value="${user.uid}" />
 						</form>
 					</div>
+
+					
 	 	    <c:forEach items="${ors}" var="os">  
  				<div class="dkuang deng">
  				<c:if test="${os.orderstate==0}">
-						<p class="one">待支付</p>
+						<p class="one" onclick="">待支付</p>
 						</c:if>
 						<c:if test="${os.orderstate==1}">
 						<p class="one">已支付</p>
 						</c:if>
 					<c:if test="${os.orderstate==2}">
-						<p class="one fl">待收货</p>
+						<p class="one" onclick="">待收货</p>
 					</c:if>
 					<c:if test="${os.orderstate==4}">
 						<p class="one fl">已收货</p>
@@ -155,18 +229,72 @@
 						<a href="../OrderXqController/Orderxq?uid=${user.uid}&orderid=${os.orderid}">订单详情</a>
 							</p>
 							</div>
-					</div>
-					
+					</div>	
               </c:forEach> 
-					<div class="fenye clearfix">
-						<a href="#"><img src="../qian/img/zuo.jpg"/></a>
-						<a href="#">1</a>
-						<a href="#"><img src="../qian/img/you.jpg"/></a>
-					</div>
+						<script>
+						// 扩展 insertAfter 方法
+						function insertAfter(newNode, referenceNode) {
+						    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+						}
+
+						document.addEventListener("DOMContentLoaded", function () {
+						    var orders = document.querySelectorAll(".dkuang.deng");
+						    var itemsPerPage = 2; // 调整每页显示的订单数
+						    var currentPage = 1;
+
+						    function showPage(page) {
+						        var startIndex = (page - 1) * itemsPerPage;
+						        var endIndex = startIndex + itemsPerPage;
+
+						        orders.forEach(function (order, index) {
+						            order.style.display = (index >= startIndex && index < endIndex) ? "block" : "none";
+						        });
+						    }
+
+						    function updatePagination() {
+						        var totalPages = Math.ceil(orders.length / itemsPerPage);
+						        var paginationContainer = document.createElement("div");
+						        paginationContainer.className = "pagination";
+
+						        for (var i = 1; i <= totalPages; i++) {
+						            var pageLink = document.createElement("a");
+						            pageLink.href = "#";
+						            pageLink.textContent = i;
+
+						            if (i === currentPage) {
+						                pageLink.className = "active";
+						            }
+
+						            pageLink.addEventListener("click", function (event) {
+						                event.preventDefault();
+						                currentPage = parseInt(event.target.textContent);
+						                showPage(currentPage);
+						                updatePagination();
+						            });
+
+						            paginationContainer.appendChild(pageLink);
+						        }
+
+						        // Clear existing pagination
+						        var existingPagination = document.querySelector(".pagination");
+						        if (existingPagination) {
+						            existingPagination.remove();
+						        }
+
+						        // Append new pagination
+						        insertAfter(paginationContainer, document.querySelector(".Bott"));
+						    }
+
+						    showPage(currentPage);
+						    updatePagination();
+						});
+
+</script>
 				</div>
 			</div>
 		</div>
 		 	<script type="text/javascript">
+		 	console.log("JavaScript2 正在执行！");
 		 	function oes(ida) {
 		 		var a=ida;
 		 		console.log(a); 
@@ -238,4 +366,5 @@
 		<script src="../qian/js/user.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>
+
 

@@ -93,22 +93,41 @@
 		<div class="bj">
 			<div class="clearfix"><a href="#" class="fr gb"><img src="../qian/img/icon4.png"/></a></div>
 			<h3>编辑基础资料</h3>
-			<form action="#" method="get" class="layui-form" lay-filter="feedit">
-				<p><input type="hidden"  name="uid" value="${user.uid}" readOnly/></p>
-				<p><label>生日：</label><input type="text"  name="ubirthday" id="begin" value="<fmt:formatDate type="both" value="${user.ubirthday}"/>"  /></p>
-			    <p><label>性别：</label>
-					<select name="usex">
+			<form action="#" method="get" >
+				<p><input type="hidden" id="uid" name="uid" value="${user.uid}" readOnly/></p>
+				<p>生日：<input type="text"  name="ubirthday" id="begin" value="<fmt:formatDate type="both" value="${user.ubirthday}"/>"  /></p>
+			    <p>性别：
+					<select name="usex" id="usex">
+					<option value="${user.usex}">${user.usex}</option>
 					<option value="男">男</option>
 					<option value="女">女</option>
 					</select>
 				</p>
 				<div class="bc">
-					<button class="layui-btn" lay-submit lay-filter="update">修改</button>
+					<input type="button" onclick="xiugai()" value="修改">
 					<input type="button" value="取消" />
 				</div>
 			</form>
 		</div>
-		
+		<script type="text/javascript">
+		function xiugai(){
+			var begin=document.getElementById('begin').value;
+			var usex=document.getElementById('usex').value;
+			var uid=document.getElementById('uid').value;
+			console.log(begin)
+			console.log(usex)
+			console.log(uid)
+			$.post("../UpdateMygrxxController/updateUser",{"ubirthday":begin,"usex":usex,"uid":uid},function(res){
+					if(res.code=="0"){
+						alert(res.msg);
+        				setTimeout('window.location.reload()',1000);
+        			}else{
+        				alert(res.msg);
+        				setTimeout('window.location.reload()',1000);
+        			} 
+				},"json");
+		}
+		</script>
 		<!--高级设置修改-->
 		<div class="xg">
 			<div class="clearfix"><a href="#" class="fr gb"><img src="../qian/img/icon4.png"/></a></div>
@@ -116,7 +135,7 @@
 			<form action="#" method="get">
 				<p><label>地区：</label><input type="text"  value="六六六" /></p>
 				<div class="bc">
-					<input type="button" value="保存" />
+					<input type="button"  value="保存" />
 					<input type="button" value="取消" />
 				</div>
 			</form>
@@ -133,10 +152,13 @@
     			<button type="button" class="layui-btn" id="img">
      			<i class="layui-icon">&#xe67c;</i>上传图片
  				</button><br>
- 				<img id="phose" style="width:120px" src="../images/${user.uimg}"/><br/>
+ 				<img id="phose" style="width:120px" src="../images/${user.uimg}" /><br/>
       			<input type="hidden" name="uimg" id="uimg" autoco mplete="off" placeholder="请上传图片" class="layui-input">
     			</div>
   				</div>
+				 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				 
 				 <button class="layui-btn" lay-submit lay-filter="updemomen">修改</button>	 
 			</form>
 		</div>
@@ -246,8 +268,8 @@
 			  
 		 	  $.post("../UpdateMygrxxController/updateUimg",data.field,function(res){
 		 		  if(res.code=="0"){
-		 			  layer.msg(res.msg,{icon:1,time:2000},function(){
-		 				 setTimeout('window.location.reload()',1000);
+		 			  layer.msg(res.msg,{icon:1,time:200},function(){
+		 				 setTimeout('window.location.reload()',100);
 		 			  });
 		 		  }else{
 		 			  layer.msg(res.msg);
@@ -259,5 +281,6 @@
 });
 </script>
 </html>
+
 
 

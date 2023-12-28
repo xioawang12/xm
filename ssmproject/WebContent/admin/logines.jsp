@@ -77,7 +77,7 @@
 <body>
     <div class="container">
         <div class="login-wrapper">
-            <div class="header">靠谱水果店登录</div>
+            <div class="header">100%水果登录</div>
             <div class="form-wrapper">
                 <form class="layui-form" method="post" id="container">
   <div class="layui-form-item">

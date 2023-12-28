@@ -129,4 +129,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getshoppords" resultType="orders" parameterType="orders">
 	SELECT * FROM orders WHERE uid=#{uid} ORDER BY orderid DESC
 	</select>
+	<select id="getDingDan" parameterType="orders" resultMap="ord" >
+	select * from orders o
+		INNER JOIN user u on o.uid=u.uid
+		INNER JOIN address a on o.adid=a.adid where o.uid=#{uid} and o.oroddnum=#{oroddnum} 
+	</select>
 </mapper>

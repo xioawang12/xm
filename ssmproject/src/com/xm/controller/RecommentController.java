@@ -69,7 +69,7 @@ public class RecommentController {
 		@ResponseBody
 		public Result updateRecomment(Recomment recomment) {
 			//根据推荐位置id查是否有值
-			List<Recomment>listrec=recommentService.findall(recomment.getLocid());
+			List<Recomment>listrec=recommentService.getname(recomment);
 			Result r;
 			if(listrec.size()>0) {
 				r=new Result(1, "该规格已有此商品");
@@ -107,8 +107,8 @@ public class RecommentController {
 		 */
 		@RequestMapping("/findall")
 		@ResponseBody
-		public Result findall(int locid) {
-			List<Recomment> rec=recommentService.findall(locid);
+		public Result findall(Recomment recomment) {
+			List<Recomment> rec=recommentService.getname(recomment);
 			Result r;
 			if (rec!=null) {
 				r=new Result(0,"",rec.size(),rec);

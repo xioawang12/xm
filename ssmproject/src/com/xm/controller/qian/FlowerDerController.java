@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xm.entity.Category;
 import com.xm.entity.Product;
+import com.xm.entity.ProductVo;
 import com.xm.entity.Proimg;
 import com.xm.service.CategoryService;
 import com.xm.service.ProductService;

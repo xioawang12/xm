@@ -20,10 +20,10 @@
 							<a href="#" id="login">登录</a>
 							<a href="#" id="reg">注册</a>
 						</p>
-						<form action="#" method="get" class="fl">
-							<input type="text" placeholder="搜索" />
-							<input type="button" />
-						</form>
+					<form action="../PaintController/getpaint" method="get" class="fl">
+						<input type="text" name="pname" placeholder="搜索" /> <input
+							type="submit" value="" />
+					</form>
 						<div class="btn fl clearfix">
 							<a href="mygxin.html"><img src="img/grzx.png"/></a>
 							<a href="#" class="er1"><img src="img/ewm.png"/></a>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>靠谱水果店</title>
+<title>100%水果店</title>
 <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 </head>
 <body>

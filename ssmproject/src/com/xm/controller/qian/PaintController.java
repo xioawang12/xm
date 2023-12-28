@@ -36,4 +36,14 @@ public class PaintController {
 		model.addAttribute("proquan",proquan);
 		return "paint";	
 	}
+	@RequestMapping("/getpaint")
+	public String getpaint(Model model,String pname) {
+		List<Product> proquan=productservice.getpname(pname);
+		List<Category> list=CategoryService.gettype();
+		List<Category> list2=CategoryService.getQianW();
+		model.addAttribute("list", list);
+		model.addAttribute("list2", list2);
+		model.addAttribute("proquan",proquan);
+		return "paint";	
+	}
 }

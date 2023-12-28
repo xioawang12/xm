@@ -38,7 +38,7 @@
 		<!------------------------------idea------------------------------>
 		<div class="address mt">
 			<div class="wrapper clearfix">
-				<a href="index.html" class="fl">首页</a>
+				<a href="../IndexController/getindex" class="fl">首页</a>
 				<span>/</span>
 				<c:forEach items="${ad}" var="ad" begin="0" end="0">
 				<a href="../MyginController/getUser?uid=${ad.user.uid}" class="on">个人中心</a>

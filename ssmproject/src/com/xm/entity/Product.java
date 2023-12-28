@@ -34,6 +34,15 @@ public class Product {
 		this.pstyle = pstyle;
 		this.proimg = proimg;
 	}
+	
+
+	public Product(String pname, Integer cateid) {
+		super();
+		this.pname = pname;
+		this.cateid = cateid;
+	}
+
+
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub

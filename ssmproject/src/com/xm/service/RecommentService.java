@@ -12,7 +12,7 @@ public interface RecommentService {
 	int insertRecomment(Recomment recomment);
 	int updateRecomment(Recomment recomment);
 	int deleteRecomment(int id);
-	List<Recomment>findall(int locid);
+	List<Recomment>findall(Recomment recomment);
 	
 	List<Recomment>getname(Recomment recomment);
 	

@@ -101,6 +101,11 @@ public class OrdersServiceImpl implements OrdersService {
 		// TODO Auto-generated method stub
 		return ordersMapper.getshoppords(orders);
 	}
+	@Override
+	public List<Orders> getDingDan(int uid, String oroddnum) {
+		// TODO Auto-generated method stub
+		return ordersMapper.getDingDan(uid, oroddnum);
+	}
 	
 	
 

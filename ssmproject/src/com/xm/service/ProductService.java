@@ -40,5 +40,7 @@ public interface ProductService {
 	
 	public List<Product> getcate(String ids);
 	
+	public List<Product> getpname(String pname);
+	
 
 }

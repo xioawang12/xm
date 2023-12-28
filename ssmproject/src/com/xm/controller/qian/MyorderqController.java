@@ -74,6 +74,28 @@ public class MyorderqController {
 		return "myorderq";
 	}
 	/**
+	 * 存地址/商品类型/订单/订单详细数据进入订单页面
+	 * @param model
+	 * @param uid
+	 * @param orderstate
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/Myorderqs")
+	public String Myorderqs(Model model,int uid,String oroddnum,HttpSession session) {
+		List<Address> ad=AddressService.getuserid(uid);
+		List<Category> list=CategoryService.gettype();
+		List<Category> list2=CategoryService.getQianW();
+		List<OrdersDetail> osers=OrdersDetailService.QianSan();
+		List<Orders> ors=OrdersService.getDingDan(uid,oroddnum);
+		session.setAttribute("list", list);
+		session.setAttribute("list2", list2);
+		model.addAttribute("ad", ad);
+		model.addAttribute("osers", osers);
+		model.addAttribute("ors", ors);
+		return "myorderq";
+	}
+	/**
 	 * 修改订单状态变为4待收货
 	 * @param orders
 	 * @return

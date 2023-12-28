@@ -61,9 +61,9 @@
 				<a href="../MyginController/getUser?uid=${user.uid}">欢迎您：${user.uname}</a>
 				</c:if>
 					</p>
-					<form action="#" method="get" class="fl">
-						<input type="text" placeholder="搜索" /> <input
-							type="button" />
+					<form action="../PaintController/getpaint" method="get" class="fl">
+						<input type="text" name="pname" placeholder="搜索" /> <input
+							type="submit" value="" />
 					</form>
 					<div class="btn fl clearfix">
 						<a href="../MyginController/getUser?uid=${user.uid}"><img src="../qian/img/grzx.png" /></a> <a href="#"
@@ -100,7 +100,7 @@
 	
 		<!-----------------banner------------------------------->
 		<div class="banner">
-			<a href="#"><img src="../images/l1.png"style="width:1800px;height: 800px;"/></a>
+			<a href="#"><img src="../images/l1.png" width="1080px" height="800px"/></a>
 		</div>	
 		<!-----------------address------------------------------->
 		<div class="address">
@@ -112,8 +112,8 @@
 		
 		<div class="paintCon">
 			<section class="wrapper">
-				<h3><img src="../images/b5.jpg"></h3>
-				<img src="../images/草莓 (2).jpg" style="width:1080px;height:560px;"/>
+				<h3><img src="../images/b4.jpg"></h3>
+				<img src="../qian/img/temp/paint01.jpg" />
 				<div class="paintList">
 				<c:forEach items="${proquan }" var="proquan">
 					<a href="../ProDetailController/getDetail?pid=${proquan.pid}&cateid=${proquan.cateid}">

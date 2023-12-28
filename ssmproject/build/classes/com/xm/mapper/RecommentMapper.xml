@@ -43,7 +43,7 @@ SELECT*FROM recomment r
 	<delete id="deleteRecomment" parameterType="int">
 		delete from recomment where recomid in(#{id})
 	</delete>
-	<select id="findall" resultType="recomment" parameterType="int">
+	<select id="findall" resultType="recomment" parameterType="recomment">
 	select * from recomment where locid=#{locid}
 	</select>
 	<select id="getname" resultType="recomment" parameterType="recomment">

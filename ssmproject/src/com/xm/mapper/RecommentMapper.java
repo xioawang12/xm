@@ -39,7 +39,7 @@ public interface RecommentMapper {
 	 * @param locid
 	 * @return
 	 */
-	List<Recomment>findall(@Param("locid")int locid);
+	List<Recomment>findall(Recomment recomment);
 	/**
 	 * 根据商品id和推荐位置id全查
 	 * @param locid
@@ -59,6 +59,10 @@ public interface RecommentMapper {
 	 * @return
 	 */
 	List<Recomment> QianRecos();
-	
-
+	/**
+	 * 根据id获取所有推荐
+	 * @param locid
+	 * @return
+	 */
+	List<Recomment>getid(int locid);
 }

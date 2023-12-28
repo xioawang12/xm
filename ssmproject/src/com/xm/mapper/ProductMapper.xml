@@ -40,6 +40,7 @@ and p.cateid=#{cateid}
 and pstate=#{pstate}
 </if>
 </where>
+ORDER BY p.pid DESC
 <if test="page!=null and limit!=null">
  limit ${(page-1)*limit},#{limit}
 </if>
@@ -54,7 +55,7 @@ update product set pname=#{pname},cateid=#{cateid},pimg=#{pimg},pintro=#{pintro}
 delete from product where pid=#{pid}
 </delete>
 <select id="getpro" resultType="product" parameterType="product">
-select * from product
+select * from product where pstate=0 ORDER BY pid DESC
 </select>
 <select id="getcateid" resultType="product" parameterType="int">
 select * from product where cateid=#{cateid}
@@ -79,9 +80,7 @@ select * from product LIMIT 5
 </select>
 <select id="getLeiShang" resultMap="pro" parameterType="product">
 select * from product p 
-inner join category c on p.cateid=c.cateid 
-<!-- inner join proimg pr on pr.pid=p.pid 
-inner join specification sp on sp.pid=p.pid  -->
+join category c on p.cateid=c.cateid 
 where p.cateid=#{cateid}
 </select>
 <select id="getDetail" resultMap="pro" parameterType="int">
@@ -102,6 +101,8 @@ inner join shoppingcart s on p.pid=s.pid
 inner join specification sp on s.sid=sp.sid
 where s.shopid in(${ids})
 	</select>
-
+<select id="getpname" parameterType="string" resultType="product">
+select * from product where pname like concat('%',#{pname},'%') and pstate=0
+</select>
 
 </mapper>

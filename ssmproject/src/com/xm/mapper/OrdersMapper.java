@@ -2,6 +2,8 @@ package com.xm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.xm.entity.Orders;
 import com.xm.entity.OrdersVo;
 import com.xm.entity.OrderssVo;
@@ -109,5 +111,12 @@ public interface OrdersMapper {
 	 * @return
 	 */
 	List<Orders> getshoppords(Orders orders);
+	
+	/**
+	 * 前台查订单号
+	 * @param orders
+	 * @return
+	 */
+	List<Orders> getDingDan(@Param("uid")int uid,@Param("oroddnum")String oroddnum);
 }
 

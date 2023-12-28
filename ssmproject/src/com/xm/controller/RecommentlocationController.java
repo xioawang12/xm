@@ -89,15 +89,14 @@ public class RecommentlocationController {
 		 */
 		@RequestMapping("/deleteById")
 		@ResponseBody
-		public Result deleteById(int locid) {
+		public Result deleteById(Recomment recomment) {
 			//根据推荐位置id查是否有值
-			List<Recomment>reco=RecommentService.findall(locid);
-			System.out.println(locid);
+			List<Recomment>reco=RecommentService.findall(recomment);
 			Result r;
 			if(reco.size()>0) {
 				r=new Result(1, "该类型已被引用");
 			}else {
-				int tj=recommentlocationService.deleteById(locid);
+				int tj=recommentlocationService.deleteById(recomment.getLocid());
 				if(tj>0) {
 					r=new Result(0, "删除成功");
 				}else {

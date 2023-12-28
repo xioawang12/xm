@@ -10,23 +10,6 @@
 <body>
 <div class="layui-form-item" style="margin-top: 20px;">
 		<form class="layui-form" onsubmit="return false;">
-			<label class="layui-form-label">名称:</label>
-			<div class="layui-input-inline" style="width: 200px;">
-				<input type="text" name="scolor" autocomplete="off"
-					class="layui-input">
-			</div>
-			<label class="layui-form-mid">价格:</label>
-			<div class="layui-input-inline" style="width: 80px;">
-				<input type="text" name="minSoriginal" autocomplete="off"
-					class="layui-input">
-			</div>
-			<label class="layui-form-mid">--</label>
-			<div class="layui-input-inline" style="width: 80px;">
-				<input type="text" name="maxSoriginal" autocomplete="off"
-					class="layui-input">
-			</div>
-				<button class="layui-btn" lay-submit lay-filter="search">搜索</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				<button class="layui-btn" lay-submit lay-filter="delBatch">批量删除</button>
 		</form>
 	</div>
@@ -44,7 +27,7 @@
 	<div style="display: none" id="addspecification">
 		<form class="layui-form" lay-filter="feedit" action="" id="addform">
 			<div class="layui-form-item">
-				<label class="layui-form-label">颜色</label>
+				<label class="layui-form-label">口味</label>
 				<div class="layui-input-inline">
 				<input type="hidden" name="pid"/>
 					<input type="text" name="scolor" required lay-verify="required"
@@ -78,7 +61,7 @@
 	<div style="display: none" id="updatespecification">
 		<form class="layui-form" lay-filter="fmUpdate" action="" id="addform">
 			<div class="layui-form-item">
-				<label class="layui-form-label">颜色</label>
+				<label class="layui-form-label">口味</label>
 				<div class="layui-input-inline">
 					<input type="hidden" name="sid"> 
 					<input type="hidden" name="pid">
@@ -131,7 +114,7 @@ layui.use(['table', 'form','upload','laydate','laypage'], function(){
 	    ,cols: [[ //表头
 	    	{checkbox:true}
 	      ,{field: 'sid', title: 'ID', width:80,}
-	      ,{field: 'scolor', title: '颜色', width:80}
+	      ,{field: 'scolor', title: '口味', width:80}
 	      ,{field: 'soriginal', title: '价格', width:80, sort: true}
 	      ,{templet: '<div>{{d.product.pname}}</div>', title: '商品', width: 150}
 	      ,{field: 'sstock', title: '库存', width: 80}

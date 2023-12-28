@@ -98,6 +98,11 @@ public class ProductImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productmapper.getcate(ids);
 	}
+	@Override
+	public List<Product> getpname(String pname) {
+		// TODO Auto-generated method stub
+		return productmapper.getpname(pname);
+	}
 
 
 }

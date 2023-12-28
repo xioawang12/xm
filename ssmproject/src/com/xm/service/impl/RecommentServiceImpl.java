@@ -38,9 +38,9 @@ public class RecommentServiceImpl implements RecommentService {
 	}
 
 	@Override
-	public List<Recomment> findall(int locid) {
+	public List<Recomment> findall(Recomment recomment) {
 		// TODO Auto-generated method stub
-		return RecommentMapper.findall(locid);
+		return RecommentMapper.findall(recomment);
 	}
 
 	@Override

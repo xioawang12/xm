@@ -25,5 +25,6 @@ public interface OrdersService {
 	List<Orders> Danbiao(int orderid);
 	int updateOrderss(Orders orders);
 	List<Orders> getshoppords(Orders orders);
+	List<Orders> getDingDan(int uid,String oroddnum);
 }
 

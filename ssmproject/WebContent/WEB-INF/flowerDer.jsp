@@ -26,9 +26,9 @@
 				<a href="../MyginController/getUser?uid=${user.uid}">欢迎您：${user.uname}</a>
 				</c:if>
 					</p>
-					<form action="#" method="get" class="fl">
-						<input type="text" placeholder="搜索" /> <input
-							type="button" />
+				<form action="../PaintController/getpaint" method="get" class="fl">
+						<input type="text" name="pname" placeholder="搜索" /> <input
+							type="submit" value="" />
 					</form>
 					<div class="btn fl clearfix">
 						<a href="../MyginController/getUser?uid=${user.uid}"><img src="../qian/img/grzx.png" /></a> <a href="#"

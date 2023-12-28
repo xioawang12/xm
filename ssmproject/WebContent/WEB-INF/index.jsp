@@ -15,7 +15,7 @@
 			<div class="wrapper clearfix">
 				<div class="clearfix" id="top">
 				<h1 class="fl">
-					<a href="../IndexController/getindex"><img src="../images/logo.png" width="200px" height="70px"/></a>
+					<a href="../IndexController/getindex"><img src="../images/logo.png" width="500px" height="60px"></a>
 				</h1>
 				<div class="fr clearfix" id="top1">
 					<p class="fl">
@@ -28,9 +28,9 @@
 				<a href="../MyginController/getUser?uid=${user.uid}">欢迎您：${user.uname}</a>
 				</c:if>
 					</p>
-					<form action="#" method="get" class="fl">
-						<input type="text" placeholder="搜索" /> <input
-							type="button" />
+					<form action="../PaintController/getpaint" method="get" class="fl">
+						<input type="text" name="pname" placeholder="搜索" /> <input
+							type="submit" value="" />
 					</form>
 					<div class="btn fl clearfix">
 						<a href="../MyginController/getUser?uid=${user.uid}"><img src="../qian/img/grzx.png" /></a> <a href="#"
